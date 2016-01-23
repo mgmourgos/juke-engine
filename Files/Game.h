@@ -2,15 +2,17 @@
 #include <vector>
 #include "Graphics.h"
 #include "Sprite.h"
+#include "Player.h"
 
 class Sprite;
 class Graphics;
 
 class Game
 {
+	
 	std::vector<Sprite> AllSprites;
 	Graphics graphics;
-
+	Player *player;
 	//Sprite BackGround;
 
 	void eventLoop();

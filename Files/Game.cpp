@@ -13,12 +13,14 @@ namespace {
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
+	player = new Player(graphics, 320, 240);
 	eventLoop();
-
+	
 	AllSprites.clear();
 }
 
 Game::~Game() {
+	delete player;
 	SDL_Quit();
 }
 
@@ -31,9 +33,11 @@ void Game::eventLoop() {
 	//Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 400);
 	//graphics.loadImage("Files/Background.bmp");
 
-	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 400);
+	
+	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 480);
 	std::cout << "game sprite address: " << BackGround.sprite_sheet.get() << std::endl;
 	AllSprites.push_back(BackGround);
+	
 	//update(0);
 	
 	
@@ -86,6 +90,7 @@ void Game::draw(Graphics& graphics_) {
 	for (int i = 0; i < AllSprites.size(); i++) {
 		AllSprites[i].draw(graphics, 0, 0);
 	}
+	player->draw(graphics);
 	graphics.flip();
 }
 

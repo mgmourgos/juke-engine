@@ -27,6 +27,12 @@
     <ClInclude Include="Files\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Files\Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Files\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Files\Game.cpp">
@@ -44,5 +50,19 @@
     <ClCompile Include="Files\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Files\Command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Files\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Files\Background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Files\Player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
