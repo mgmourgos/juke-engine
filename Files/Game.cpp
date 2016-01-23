@@ -14,6 +14,8 @@ namespace {
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	eventLoop();
+
+	AllSprites.clear();
 }
 
 Game::~Game() {
@@ -23,8 +25,17 @@ Game::~Game() {
 void Game::eventLoop() {
 
 	SDL_Event event;
-	Graphics graphics;
+	//Graphics graphics;
 	Input input;
+	
+	//Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 400);
+	//graphics.loadImage("Files/Background.bmp");
+
+	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 400);
+	std::cout << "game sprite address: " << BackGround.sprite_sheet.get() << std::endl;
+	AllSprites.push_back(BackGround);
+	//update(0);
+	
 	
 	bool running = true;
 	int last_update_time = SDL_GetTicks();
@@ -67,14 +78,19 @@ void Game::eventLoop() {
 		if (elapsed_time_ms < ms_per_frame) {
 			SDL_Delay(ms_per_frame - elapsed_time_ms);   //delays for 1/60th of a second //10 ms or less of granularity
 		}
-	}
+	}//while running
 }
 
-void Game::draw(Graphics& graphics) {
+void Game::draw(Graphics& graphics_) {
 	graphics.clear();
+	for (int i = 0; i < AllSprites.size(); i++) {
+		AllSprites[i].draw(graphics, 0, 0);
+	}
 	graphics.flip();
 }
 
 void Game::update(int elapsed_time_ms) {
-	
+
+
+
 }

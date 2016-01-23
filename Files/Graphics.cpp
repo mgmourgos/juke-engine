@@ -39,19 +39,45 @@ std::shared_ptr<SDL_Texture> Graphics::loadImage(const std::string& file_path) {
 		}
 
 		SDL_Texture* texture = SDL_CreateTextureFromSurface(mainRenderer.get(), tempSurface);
+		std::cout << "text add: " << texture << std::endl;
 
 		sprite_sheets[file_path].reset(texture, SDL_Deleter());
 
 		SDL_FreeSurface(tempSurface);
 	}
+	//std::cout << "text add: " << &texture << std::endl;
 
 	return sprite_sheets[file_path];													
 }
 
 
+void Graphics::draw(SDL_Texture* ptr_, SDL_Rect source_rect, SDL_Rect dest_rect) {
+	//std::cout << "Trying to draw to renderer" << std::endl;
+	SDL_RenderCopy(mainRenderer.get(), ptr_, &source_rect, &dest_rect);
+	//SDL_RenderPresent(mainRenderer.get());
+}
 
 void Graphics::clear() {
+	SDL_RenderClear(mainRenderer.get());
 }
 
 void Graphics::flip() {
+	//std::cout << "Trying to present to screen" << std::endl;
+
+	/*
+	SDL_Surface* loadingSurf = SDL_LoadBMP("Files/Background.bmp");
+	SDL_Texture* backgroundTx = SDL_CreateTextureFromSurface(mainRenderer.get(), loadingSurf);
+	SDL_FreeSurface(loadingSurf);
+
+	SDL_RenderCopy(mainRenderer.get(), backgroundTx, NULL, NULL);//adds the background to the renderer screen
+	SDL_DestroyTexture(backgroundTx);
+	*/
+
+
+
+
+
+
+
+	SDL_RenderPresent(mainRenderer.get());
 }

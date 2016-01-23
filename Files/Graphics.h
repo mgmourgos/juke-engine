@@ -25,6 +25,7 @@ public:
 
 	void clear();
 	void flip();
+	void draw(SDL_Texture* ptr, SDL_Rect source_rect, SDL_Rect dest_rect);
 
 	std::shared_ptr<SDL_Texture> loadImage(const std::string& file_path);
 };
