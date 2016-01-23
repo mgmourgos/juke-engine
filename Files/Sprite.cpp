@@ -25,8 +25,8 @@ void Sprite::draw(Graphics& graphics, int x, int y) {
 	SDL_Rect destination_rectangle;
 	destination_rectangle.x = x;
 	destination_rectangle.y = y;
-	destination_rectangle.w = 640;
-	destination_rectangle.h = 400;
+	destination_rectangle.w = source_rect.w;
+	destination_rectangle.h = source_rect.h;
 	//graphics.blitSurface(sprite_sheet, &source_rect, &destination_rectangle);
 	graphics.draw(sprite_sheet.get(), source_rect, destination_rectangle);
 }
