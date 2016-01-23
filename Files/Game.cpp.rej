@@ -1,0 +1,10 @@
+diff a/Files/Game.cpp b/Files/Game.cpp	(rejected hunks)
+@@ -6,7 +6,7 @@
+ #include <iostream>
+ #include "Input.h"
+ 
+-
++//Branch edit
+ namespace {
+ 	const int FPS = 60;
+ }
