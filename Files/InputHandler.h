@@ -15,21 +15,12 @@ class InputHandler
 
 	std::map<SDL_Keycode, std::shared_ptr<Command>> command_map;
 
-	/////////Commands
-	/*std::unique_ptr<MoveLeftCommand> move_left_command;
-	std::unique_ptr<MoveRightCommand> move_right_command;
-	std::unique_ptr<MoveUpCommand> move_up_command;
-	std::unique_ptr<MoveDownCommand> move_down_command;*/
-	//std::unique_ptr<StopMovingCommand> stop_moving_command;
-
 public:
 	InputHandler();
 
 	void beginNewFrame();
 
 	bool getCommandsFromInput(std::vector<std::shared_ptr<Command>>& commands);
-
-	bool handleInput();
 
 	void keyDownEvent(const SDL_Event& event);
 	void keyUpEvent(const SDL_Event& event);

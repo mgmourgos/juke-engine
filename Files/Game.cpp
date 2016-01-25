@@ -28,7 +28,7 @@ void Game::eventLoop() {
 	InputHandler input;
 	Command* command;
 	
-	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 480);
+	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 432);
 	player = new Player(graphics, 320, 240);
 
 	AllSprites.push_back(BackGround);
@@ -41,7 +41,6 @@ void Game::eventLoop() {
 		input.beginNewFrame();
 		command = NULL;
 
-		//////Input Handling///////////////////////////
 		running = input.getCommandsFromInput(command_queue);
 		
 		executeCommands();

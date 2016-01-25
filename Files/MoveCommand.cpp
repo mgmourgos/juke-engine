@@ -1,23 +1,5 @@
 #include "MoveCommand.h"
 
-
-/*MoveCommand::MoveCommand() : direction()
-{
-}
-
-
-MoveCommand::~MoveCommand()
-{
-}
-
-void MoveCommand::changeDirection(Direction direction_) {
-	direction = direction_;
-}
-
-void MoveCommand::execute(GameActor& gameactor) {
-	
-}*/
-
 void MoveLeftCommand::execute(GameActor& gameactor) {
 	gameactor.moveLeft();
 }
@@ -33,3 +15,8 @@ void MoveUpCommand::execute(GameActor& gameactor) {
 void MoveDownCommand::execute(GameActor& gameactor) {
 	gameactor.moveDown();
 }
+
+void JumpCommand::execute(GameActor& gameactor) {
+	gameactor.jump();
+}
+

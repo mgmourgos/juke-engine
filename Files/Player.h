@@ -13,6 +13,7 @@ class Player : public GameActor
 
 	bool moveRightLeft;
 	bool moveUpDown;
+	bool jumping;
 
 public:
 	Player(Graphics& graphics, int x, int y);
@@ -26,5 +27,6 @@ public:
 	void moveUp();
 	void moveDown();
 	void stopMoving();
+	void jump();
 };
 
