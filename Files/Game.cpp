@@ -4,7 +4,7 @@
 #include "Graphics.h"
 #include "Sprite.h"
 #include <iostream>
-#include "Input.h"
+#include "InputHandler.h"
 
 
 namespace {
@@ -13,9 +13,7 @@ namespace {
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	player = new Player(graphics, 320, 240);
 	eventLoop();
-	
 	AllSprites.clear();
 }
 
@@ -26,20 +24,14 @@ Game::~Game() {
 
 void Game::eventLoop() {
 
-	SDL_Event event;
-	//Graphics graphics;
-	Input input;
-	
-	//Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 400);
-	//graphics.loadImage("Files/Background.bmp");
-
+	Graphics graphics;
+	InputHandler input;
+	Command* command;
 	
 	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 480);
-	std::cout << "game sprite address: " << BackGround.sprite_sheet.get() << std::endl;
+	player = new Player(graphics, 320, 240);
+
 	AllSprites.push_back(BackGround);
-	
-	//update(0);
-	
 	
 	bool running = true;
 	int last_update_time = SDL_GetTicks();
@@ -47,29 +39,12 @@ void Game::eventLoop() {
 	while (running) {
 		const int start_time_ms = SDL_GetTicks();
 		input.beginNewFrame();
-		while (SDL_PollEvent(&event)) {
+		command = NULL;
+
+		//////Input Handling///////////////////////////
+		running = input.getCommandsFromInput(command_queue);
 		
-			switch (event.type) {
-				case SDL_KEYDOWN:
-					input.keyDownEvent(event);
-					break;
-				case SDL_KEYUP:
-					input.keyUpEvent(event);
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					input.mouseDownEvent(event);
-					break;
-				case SDL_QUIT:
-					running = false;
-					break;
-				default:
-					break;
-			}
-		}
-		
-		if (input.wasKeyPressed(SDLK_ESCAPE)) {
-			running = false;
-		}
+		executeCommands();
 
 		const int current_time_ms = SDL_GetTicks();
 		update(current_time_ms - last_update_time);
@@ -85,7 +60,14 @@ void Game::eventLoop() {
 	}//while running
 }
 
-void Game::draw(Graphics& graphics_) {
+void Game::executeCommands() {
+	for (auto command : command_queue) {
+		command->execute(*player);
+	}
+	command_queue.clear();
+}
+
+void Game::draw(Graphics& graphics) {
 	graphics.clear();
 	for (int i = 0; i < AllSprites.size(); i++) {
 		AllSprites[i].draw(graphics, 0, 0);
@@ -95,7 +77,5 @@ void Game::draw(Graphics& graphics_) {
 }
 
 void Game::update(int elapsed_time_ms) {
-
-
-
+	player->update(elapsed_time_ms);
 }

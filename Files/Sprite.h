@@ -3,22 +3,12 @@
 #include <string>
 #include <iostream>
 #include <SDL.h>
+#include "SDL_Deleter.h"
 
 class Graphics;
 
 class Sprite
 {
-
-	struct SDL_Deleter
-	{
-		void operator()(SDL_Window *x) const { SDL_DestroyWindow(x); }
-		void operator()(SDL_Renderer *x) const { SDL_DestroyRenderer(x); }
-		void operator()(SDL_Texture *x) const { SDL_DestroyTexture(x);
-		std::cout << "Deleted" << std::endl;
-		}
-	};
-	//SDL_Surface* sprite_sheet;
-	//std::shared_ptr<SDL_Texture> sprite_sheet;
 
 protected:
 	SDL_Rect source_rect;

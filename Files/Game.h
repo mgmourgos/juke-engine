@@ -3,21 +3,22 @@
 #include "Graphics.h"
 #include "Sprite.h"
 #include "Player.h"
+#include "Command.h"
 
-class Sprite;
+//class Sprite;
 class Graphics;
 
 class Game
 {
-	
+	std::vector<std::shared_ptr<Command>> command_queue;
 	std::vector<Sprite> AllSprites;
-	Graphics graphics;
 	Player *player;
 	//Sprite BackGround;
 
 	void eventLoop();
 	void draw(Graphics& graphics);
 	void update(int elapsed_time_ms);
+	void executeCommands();
 
 public:
 	Game();

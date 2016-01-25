@@ -13,18 +13,25 @@
   <ItemGroup>
     <ClInclude Include="Files\Command.h" />
     <ClInclude Include="Files\Game.h" />
+    <ClInclude Include="Files\GameActor.h" />
     <ClInclude Include="Files\Graphics.h" />
-    <ClInclude Include="Files\Input.h" />
+    <ClInclude Include="Files\InputHandler.h" />
+    <ClInclude Include="Files\MoveCommand.h" />
     <ClInclude Include="Files\Player.h" />
+    <ClInclude Include="Files\PlayerState.h" />
+    <ClInclude Include="Files\SDL_Deleter.h" />
     <ClInclude Include="Files\Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Files\Command.cpp" />
     <ClCompile Include="Files\Game.cpp" />
+    <ClCompile Include="Files\GameActor.cpp" />
     <ClCompile Include="Files\Graphics.cpp" />
-    <ClCompile Include="Files\Input.cpp" />
+    <ClCompile Include="Files\InputHandler.cpp" />
     <ClCompile Include="Files\main.cpp" />
+    <ClCompile Include="Files\MoveCommand.cpp" />
     <ClCompile Include="Files\Player.cpp" />
+    <ClCompile Include="Files\PlayerState.cpp" />
     <ClCompile Include="Files\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
