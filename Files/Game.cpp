@@ -41,7 +41,6 @@ void Game::eventLoop() {
 		input.beginNewFrame();
 		command = NULL;
 
-		//////Input Handling///////////////////////////
 		running = input.getCommandsFromInput(command_queue);
 		
 		executeCommands();

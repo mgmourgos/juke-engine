@@ -4,28 +4,9 @@
 
 bool InputHandler::getCommandsFromInput(std::vector<std::shared_ptr<Command>>& command_queue) {
 	
-	bool running = handleInput();
-
-	std::map<SDL_Keycode, bool>::iterator iter;
-	for (iter = held_keys.begin(); iter != held_keys.end(); iter++) {
-		if (command_map[iter->first] != 0 && iter->second == true) {
-			if (command_map[iter->first]->getActivationType() == Command::ONHELD ||
-			   (command_map[iter->first]->getActivationType() == Command::ONPRESS &&
-				wasKeyPressed(iter->first))) {
-					command_queue.push_back(command_map[iter->first]);
-			}
-		}
-	}
-
-	return running;
-}
-
-bool InputHandler::handleInput() {    //returns false if game should stop running
-
+	//Polls all events in frame and handles key maps
 	SDL_Event event;
-
 	while (SDL_PollEvent(&event)) {
-
 		if (event.type == SDL_QUIT) {
 			return false;
 		}
@@ -40,34 +21,30 @@ bool InputHandler::handleInput() {    //returns false if game should stop runnin
 		}
 	}
 
+	//Iterates through held keys, checks if held/pressed/released keys warrant command
+	//pushes commands to command_queue
+	std::map<SDL_Keycode, bool>::iterator iter;
+	for (iter = held_keys.begin(); iter != held_keys.end(); iter++) {
+		if (command_map[iter->first] != 0 && iter->second == true) {
+			if (command_map[iter->first]->getActivationType() == Command::ONHELD ||
+			   (command_map[iter->first]->getActivationType() == Command::ONPRESS &&
+				wasKeyPressed(iter->first))) {
+					command_queue.push_back(command_map[iter->first]);
+			}
+		}
+	}
+
 	return true;
 }
 
+//initializes command_map
+//This is where we change which key links to a certain command
 InputHandler::InputHandler() {
-
 	command_map[SDLK_LEFT] = std::make_shared<MoveLeftCommand>();
 	command_map[SDLK_RIGHT] = std::make_shared<MoveRightCommand>();
 	command_map[SDLK_UP] = std::make_shared<MoveUpCommand>();
 	command_map[SDLK_DOWN] = std::make_shared<MoveDownCommand>();
 }
-
-/*Command* InputHandler::handleInput() {     //is the data member for each command a good idea? Is returning a raw pointer to game.cpp a good idea?
-
-	if(isKeyHeld(SDLK_LEFT)) {
-		return &move_left_command;
-	}
-	if(isKeyHeld(SDLK_RIGHT)) {
-		return &move_right_command;
-	}
-	if(isKeyHeld(SDLK_UP)) {
-		return &move_up_command;
-	}
-	if (isKeyHeld(SDLK_DOWN)) {
-		return &move_down_command;
-	}
-	return &stop_moving_command;
-
-}*/
 
 void InputHandler::beginNewFrame() {
 	pressed_keys.clear();

@@ -17,6 +17,5 @@ public:
 	virtual void moveRight() = 0;
 	virtual void moveUp() = 0;
 	virtual void moveDown() = 0;
-	virtual void stopMoving() = 0;
 };
 

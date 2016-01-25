@@ -2,8 +2,8 @@
 
 const double maxVelocity = 0.4f; // pixels / ms
 //const float moveAcceleration = 0.0012f; // (pixels / ms) / ms
-const float moveAcceleration = 0.0005f; // (pixels / ms) / ms
-const double slowDownFactor = 0.9f;
+const float moveAcceleration = 0.0007f; // (pixels / ms) / ms
+const double slowDownFactor = 0.92f;
 
 Player::Player(Graphics& graphics, int x_ , int y_) : moveRightLeft(false), moveUpDown(false)
 {
@@ -12,7 +12,6 @@ Player::Player(Graphics& graphics, int x_ , int y_) : moveRightLeft(false), move
 
 	sprite.reset(new Sprite(graphics, "Files/Player.bmp", 0, 0, 32, 32));
 }
-
 
 Player::~Player()
 {
@@ -86,9 +85,4 @@ void Player::moveUp() {
 	if (y_acc >= 0) {
 		y_acc += -moveAcceleration;
 	}
-}
-
-void Player::stopMoving() {    //might need this for horizontal and vertical movement not sure
-	x_acc = 0;
-	y_acc = 0;
 }

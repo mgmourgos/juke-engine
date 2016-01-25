@@ -2,26 +2,6 @@
 #include "Command.h"
 #include "GameActor.h"
 
-/*class MoveCommand : public Command
-{
-	enum Direction {
-		UP,
-		DOWN,
-		RIGHT,
-		LEFT
-	};
-
-	//Direction direction;
-
-public:
-	MoveCommand();
-	~MoveCommand();
-
-	//void changeDirection(Direction direction_);
-	void execute(GameActor& gameactor);
-
-};*/
-
 class MoveLeftCommand : public Command
 {
 public:

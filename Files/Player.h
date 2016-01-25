@@ -25,6 +25,5 @@ public:
 	void moveRight();
 	void moveUp();
 	void moveDown();
-	void stopMoving();
 };
 
