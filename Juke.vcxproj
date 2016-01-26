@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Files\Command.h" />
+    <ClInclude Include="Files\Entity.h" />
+    <ClInclude Include="Files\EnvironmentEntity.h" />
     <ClInclude Include="Files\Game.h" />
     <ClInclude Include="Files\GameActor.h" />
     <ClInclude Include="Files\Graphics.h" />
@@ -24,6 +26,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Files\Command.cpp" />
+    <ClCompile Include="Files\Entity.cpp" />
+    <ClCompile Include="Files\EnvironmentEntity.cpp" />
     <ClCompile Include="Files\Game.cpp" />
     <ClCompile Include="Files\GameActor.cpp" />
     <ClCompile Include="Files\Graphics.cpp" />
@@ -36,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Files\Background.png" />
+    <Image Include="Files\Platform.bmp" />
     <Image Include="Files\Player.bmp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

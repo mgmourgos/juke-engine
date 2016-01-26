@@ -12,7 +12,9 @@ Player::Player(Graphics& graphics, int x_, int y_) : moveRightLeft(false), moveU
 	x_pos = x_;
 	y_pos = y_;
 
-	sprite.reset(new Sprite(graphics, "Files/Player.bmp", 0, 0, 32, 32));
+	width = 25;
+	height = 32;
+	sprite.reset(new Sprite(graphics, "Files/Player.bmp", 0, 0, width, height));
 }
 
 

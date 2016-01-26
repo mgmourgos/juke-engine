@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include <iostream>
 #include "InputHandler.h"
+#include "EnvironmentEntity.h"
 
 
 namespace {
@@ -29,7 +30,14 @@ void Game::eventLoop() {
 	Command* command;
 	
 	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 432);
-	player = new Player(graphics, 320, 240);
+	//player = new Player(graphics, 320, 240);
+	std::shared_ptr<Player> player = std::make_shared<Player>(graphics, 320, 240);
+	entity_queue.push_back(player);
+	gameActor_queue.push_back(player);
+	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 350, 50, 20);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 400, 240, 100, 20);
+	entity_queue.push_back(platform);
 
 	AllSprites.push_back(BackGround);
 	
@@ -41,8 +49,15 @@ void Game::eventLoop() {
 		input.beginNewFrame();
 		command = NULL;
 
+
+
+
+
 		running = input.getCommandsFromInput(command_queue);
-		
+		//give commands the id of gameactor to execute
+		//ai.getCmds(command_queue)
+		//command_queue.push_back()
+
 		executeCommands();
 
 		const int current_time_ms = SDL_GetTicks();
@@ -51,6 +66,11 @@ void Game::eventLoop() {
 
 		draw(graphics);
 		
+
+
+
+
+
 		const int ms_per_frame = 1000/*ms*/ / FPS;
 		const int elapsed_time_ms = SDL_GetTicks() - start_time_ms;
 		if (elapsed_time_ms < ms_per_frame) {
@@ -61,7 +81,8 @@ void Game::eventLoop() {
 
 void Game::executeCommands() {
 	for (auto command : command_queue) {
-		command->execute(*player);
+
+		command->execute(*gameActor_queue[0]);
 	}
 	command_queue.clear();
 }
@@ -71,10 +92,16 @@ void Game::draw(Graphics& graphics) {
 	for (int i = 0; i < AllSprites.size(); i++) {
 		AllSprites[i].draw(graphics, 0, 0);
 	}
-	player->draw(graphics);
+	for (auto &entity : entity_queue) {
+		entity->draw(graphics);
+	}
+	//player->draw(graphics);
 	graphics.flip();
 }
 
 void Game::update(int elapsed_time_ms) {
-	player->update(elapsed_time_ms);
+	for (auto &entity : entity_queue) {
+		entity->update(elapsed_time_ms);
+	}
+	//player->update(elapsed_time_ms);
 }

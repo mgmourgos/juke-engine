@@ -45,6 +45,12 @@
     <ClInclude Include="Files\MoveCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Files\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Files\EnvironmentEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Files\Game.cpp">
@@ -77,12 +83,21 @@
     <ClCompile Include="Files\MoveCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Files\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Files\EnvironmentEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Files\Background.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Files\Player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Files\Platform.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
