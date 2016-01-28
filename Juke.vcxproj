@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Files\Box.h" />
     <ClInclude Include="Files\Command.h" />
     <ClInclude Include="Files\Entity.h" />
     <ClInclude Include="Files\EnvironmentEntity.h" />
@@ -19,12 +20,14 @@
     <ClInclude Include="Files\Graphics.h" />
     <ClInclude Include="Files\InputHandler.h" />
     <ClInclude Include="Files\MoveCommand.h" />
+    <ClInclude Include="Files\Physics.h" />
     <ClInclude Include="Files\Player.h" />
     <ClInclude Include="Files\PlayerState.h" />
     <ClInclude Include="Files\SDL_Deleter.h" />
     <ClInclude Include="Files\Sprite.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Files\Box.cpp" />
     <ClCompile Include="Files\Command.cpp" />
     <ClCompile Include="Files\Entity.cpp" />
     <ClCompile Include="Files\EnvironmentEntity.cpp" />
@@ -34,6 +37,7 @@
     <ClCompile Include="Files\InputHandler.cpp" />
     <ClCompile Include="Files\main.cpp" />
     <ClCompile Include="Files\MoveCommand.cpp" />
+    <ClCompile Include="Files\Physics.cpp" />
     <ClCompile Include="Files\Player.cpp" />
     <ClCompile Include="Files\PlayerState.cpp" />
     <ClCompile Include="Files\Sprite.cpp" />

@@ -1,6 +1,6 @@
 #pragma once
 #include "Graphics.h"
-
+#include "Box.h"
 class Entity
 {//Includes anything rendered or updated during a frame
 
@@ -13,6 +13,7 @@ protected:
 public:
 	virtual void update(int elapsed_time_ms) = 0;
 	virtual void draw(Graphics& graphics) = 0;
+	Box getBox(); 
 
 	Entity();
 	Entity(int x_, int y_);

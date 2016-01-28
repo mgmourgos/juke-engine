@@ -37,6 +37,7 @@ void Player::update(int elapsed_time_ms) {
 	}
 
 	x_vel += x_acc * elapsed_time_ms;
+	if (jumping)
 	y_vel += y_acc * elapsed_time_ms;
 
 	total_vel = sqrt(x_vel*x_vel + y_vel*y_vel);
@@ -50,7 +51,7 @@ void Player::update(int elapsed_time_ms) {
 		x_vel = std::min(x_vel, maxVelocity);
 	}
 	else {
-		if (fabs(x_vel) <= .0001) {
+		if (fabs(x_vel) <= .001) {
 			x_vel = 0;
 		}
 		else {
