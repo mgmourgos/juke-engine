@@ -25,7 +25,8 @@ class Game
 	void executeCommands();
 
 
-	void checkCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2);
+	bool doCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2);
+
 	//float SweptAABB(Box b1, Box b2, float &normalx, float &normaly);
 	Box doPhysics(Box b1, int elapsedTime);
 	bool checkBroadphase(Box b1, Box b2, int elapsed_time_ms);

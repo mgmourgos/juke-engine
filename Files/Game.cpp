@@ -35,8 +35,8 @@ void Game::eventLoop() {
 	gameActor_queue.push_back(player);
 	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 350, 50, 20);
 	entity_queue.push_back(platform);
-	//platform = std::make_shared<EnvironmentEntity>(graphics, 400, 240, 100, 20);
-	//entity_queue.push_back(platform);//All game objects are in the entity queue
+	platform = std::make_shared<EnvironmentEntity>(graphics, 400, 240, 100, 20);
+	entity_queue.push_back(platform);//All game objects are in the entity queue
 									//All gameActors are in gameActor_queue
 
 	AllSprites.push_back(BackGround);
@@ -116,7 +116,11 @@ void Game::update(int elapsed_time_ms) {
 				//checkCollision(entity1, entity2);
 				bool isCollisionPossible = checkBroadphase(entity1.get()->getBox(), entity2.get()->getBox(), elapsed_time_ms);
 				if (isCollisionPossible) {
-					std::cout << "Possible" << std::endl;
+					std::cout << "Possible Collision" << std::endl;
+					doCollision(entity1, entity2);
+				}
+				else {
+					//std::cout << "Not Possible" << std::endl;
 				}
 			}
 		}
@@ -187,21 +191,76 @@ Box Game::doPhysics(Box b1, int elapsedTime) {
 	return box;
 }
 
-void Game::checkCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2) {
+bool Game::doCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2) {
 	//Function implements a swept AABB algorithm
 	Box b1, b2;
 	b1 = e1.get()->getBox();
 	b2 = e2.get()->getBox();
 	if (b1.vx == 0.0f && b1.vy == 0.0f) {//added this so only moving objs are checked
-		return;
+		return false;
 	}
 
-	//std::cout << b1.w << std::endl;
+	bool s1, s2, s3, s4;
+	s1 = s2 = s3 = s4 = false;
 
-	//float normalx, normaly;
-	//float collisionTime = SweptAABB(b1, b2, normalx, normaly);
-	//b1.x += b1.vx * collisionTime;
-	//b1.y += b1.vx * collisionTime;
+
+	/*		State Diagram:
+
+			1	 |1 |	1
+			2	 |  |	4
+			-----~~~~-----
+			2	 |b2|   4
+			-----~~~~-----
+			2	 |  |	4
+			3	 | 3|	3
+	*/
+	//checks which side of b2 b1 is on.
+	if (b1.x > (b2.x + b2.w)) {//then b1 is to the right of b2		in state 4
+		//then no collision
+		s4 = true;
+	} else
+	if ((b1.x + b1.w) < b2.x) {//then b1 is to the left of b2		in state 2
+		s2 = true;
+	}
+
+	if ((b1.y + b1.h) < b2.y) {//then b1 is above b2				in state 1
+		s1 = true;
+	} else
+	if (b1.y > (b2.y + b2.h)) {//then b1 is below b2				in state 3
+		s3 = true;
+	}
+
+	
+
+		//then b1 vertical of b2			 or		then b1 vertical of b2
+	if ((b2.x <= b1.x + b1.w && s4 == false) || (b1.x <= b2.x + b2.w && s2 == false))  {
+		//then b1 below b2 but within y axis sides of b2
+		if (s3 == true) {
+			//then b1 below b2
+			Box b1After;
+			b1After.vx = b1.vx;
+			b1After.y = b2.y + b2.h + .01;
+			double deltaY = b1.y - b1After.y;
+			double elapedTime = -(deltaY / b1.vy);
+			b1After.x = b1.x + elapedTime * b1.vx;
+			b1After.vy = 0;
+			e1.get()->setBox(b1After);
+		}
+		else if (s1 == true) {
+			//then b1 above b2
+			Box b1After;
+			b1After.vx = b1.vx;
+			b1After.y = b2.y - b1.h - .1;
+			double deltaY = b1After.y + b1.h - b1.y + b1.h;
+			double elapedTime = (deltaY / b1.vy);
+			b1After.x = b1.x; //+ elapedTime * b1.vx;
+			//b1After.vy = 0;
+			e1.get()->setBox(b1After);
+			//e1.get()->setToUpdate(false); //CHANGES A LOT
+			
+		}
+	}
+	return false;
 }
 
 /*

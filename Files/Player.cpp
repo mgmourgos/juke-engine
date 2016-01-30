@@ -26,13 +26,27 @@ void Player::draw(Graphics& graphics) {
 	sprite->draw(graphics, (int)round(x_pos), (int)round(y_pos));
 }
 
+void Player::setJumping(bool j_) {
+	jumping = j_;
+}
+
 void Player::update(int elapsed_time_ms) {
+	if (toUpdate == false) {//then is jumping
+		jumping = false;
+		this->setToUpdate(true);
+		std::cout << "toUpdate:  " << toUpdate << "    jumping:   " << jumping << "    y_acc:" << y_acc << std::endl;
+		//y_acc = 0.0;
+		//std::cout << "noUpdate" << std::endl;
+		//return;
+	}
+	//std::cout << "    y_acc:" << y_acc << "    y_vel:" << y_vel << std::endl;
 	y_acc = gravity;//y_acc is gravity, and is reset every update so that it cannot be changed.
 
 	x_pos += x_vel * elapsed_time_ms;
 	y_pos += y_vel * elapsed_time_ms;
 	if (y_pos > 400) {
 		jumping = false;
+		//this->setToUpdate(false);
 		y_pos = 400;
 	}
 
@@ -61,6 +75,7 @@ void Player::update(int elapsed_time_ms) {
 	}
 
 	x_acc = 0;
+	//toUpdate = true;
 }
 
 void Player::moveLeft() {
@@ -91,6 +106,7 @@ void Player::moveUp() {
 void Player::jump() {
 	if (jumping == false) {
 		jumping = true;
+		this->setToUpdate(true);
 		y_vel = -jumpVelocity;
 	}
 }

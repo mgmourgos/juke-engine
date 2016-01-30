@@ -10,10 +10,13 @@ protected:
 	double x_vel, y_vel;
 	double x_acc, y_acc;
 	int width, height;
+	bool toUpdate;
 public:
 	virtual void update(int elapsed_time_ms) = 0;
 	virtual void draw(Graphics& graphics) = 0;
-	Box getBox(); 
+	Box getBox();
+	void setBox(Box b1);
+	void setToUpdate(bool);
 
 	Entity();
 	Entity(int x_, int y_);

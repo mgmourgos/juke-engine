@@ -28,5 +28,7 @@ public:
 	void moveDown();
 	void stopMoving();
 	void jump();
+
+	void setJumping(bool);
 };
 
