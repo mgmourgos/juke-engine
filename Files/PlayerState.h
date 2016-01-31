@@ -1,14 +1,13 @@
 #pragma once
+#include "Command.h"
+#include <typeinfo>
 
-class Player;
+class GameActor;
 
 class PlayerState 
 {
 
-
 public:
-	PlayerState();
-	~PlayerState();
-
-	virtual void handleInput(Player& player/*, Input input*/) {}
+	virtual void handleCommand(GameActor& game_actor, Command& command) = 0;
+	virtual void update(GameActor& game_actor, const int elapsed_time_ms) = 0;
 };

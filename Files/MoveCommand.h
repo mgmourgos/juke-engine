@@ -9,14 +9,12 @@ public:
 	void execute(GameActor& gameactor);
 };
 
-
 class MoveRightCommand : public Command
 {
 public:
 	MoveRightCommand() { activation_type = ONHELD; }
 	void execute(GameActor& gameactor);
 };
-
 
 class MoveUpCommand : public Command
 {
@@ -25,10 +23,16 @@ public:
 	void execute(GameActor& gameactor);
 };
 
-
 class MoveDownCommand : public Command
 {
 public:
 	MoveDownCommand()  { activation_type = ONHELD; }
+	void execute(GameActor& gameactor);
+};
+
+class JumpCommand : public Command
+{
+public:
+	JumpCommand()  { activation_type = ONPRESS; }
 	void execute(GameActor& gameactor);
 };

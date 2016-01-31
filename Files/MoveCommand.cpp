@@ -15,3 +15,8 @@ void MoveUpCommand::execute(GameActor& gameactor) {
 void MoveDownCommand::execute(GameActor& gameactor) {
 	gameactor.moveDown();
 }
+
+void JumpCommand::execute(GameActor& gameactor) {
+	gameactor.jump();
+}
+

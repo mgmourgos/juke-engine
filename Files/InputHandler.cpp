@@ -4,7 +4,7 @@
 
 bool InputHandler::getCommandsFromInput(std::vector<std::shared_ptr<Command>>& command_queue) {
 	
-	//Polls all events in frame and handles key maps
+	//Pulls all events in frame and handles key map
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_QUIT) {
@@ -14,15 +14,17 @@ bool InputHandler::getCommandsFromInput(std::vector<std::shared_ptr<Command>>& c
 			if (event.key.keysym.sym == SDLK_ESCAPE) {
 				return false;
 			}
-			keyDownEvent(event);
+			if (event.key.repeat == 0) { //then key is not a repeat...?
+				keyDownEvent(event);
+			}
 		}
 		else if (event.type == SDL_KEYUP) {
 			keyUpEvent(event);
 		}
 	}
-
-	//Iterates through held keys, checks if held/pressed/released keys warrant command
-	//pushes commands to command_queue
+	
+	//Iterates through held keys, checks if held/pressed/released keys warrant a command
+	//Pushes commnands to command queue
 	std::map<SDL_Keycode, bool>::iterator iter;
 	for (iter = held_keys.begin(); iter != held_keys.end(); iter++) {
 		if (command_map[iter->first] != 0 && iter->second == true) {
@@ -33,16 +35,15 @@ bool InputHandler::getCommandsFromInput(std::vector<std::shared_ptr<Command>>& c
 			}
 		}
 	}
-
 	return true;
 }
 
-//initializes command_map
-//This is where we change which key links to a certain command
 InputHandler::InputHandler() {
+
 	command_map[SDLK_LEFT] = std::make_shared<MoveLeftCommand>();
 	command_map[SDLK_RIGHT] = std::make_shared<MoveRightCommand>();
-	command_map[SDLK_UP] = std::make_shared<MoveUpCommand>();
+	//command_map[SDLK_UP] = std::make_shared<MoveUpCommand>();
+	command_map[SDLK_UP] = std::make_shared<JumpCommand>();
 	command_map[SDLK_DOWN] = std::make_shared<MoveDownCommand>();
 }
 
