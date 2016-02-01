@@ -44,7 +44,7 @@ InputHandler::InputHandler() {
 	command_map[SDLK_RIGHT] = std::make_shared<MoveRightCommand>();
 	//command_map[SDLK_UP] = std::make_shared<MoveUpCommand>();
 	command_map[SDLK_UP] = std::make_shared<JumpCommand>();
-	command_map[SDLK_DOWN] = std::make_shared<MoveDownCommand>();
+	//command_map[SDLK_DOWN] = std::make_shared<MoveDownCommand>();
 }
 
 void InputHandler::beginNewFrame() {

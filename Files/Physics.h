@@ -1,8 +1,8 @@
 #pragma once
-class Physics
+#include "Box.h"
+
+namespace Physics
 {
-public:
-	Physics();
-	~Physics();
+	Box actPhysicsOn(int elapsed_time_ms, double maxVelocity, Box box);
 };
 

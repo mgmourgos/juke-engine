@@ -1,16 +1,20 @@
 #include "Entity.h"
+#include "Physics.h"
 
-
-Entity::Entity() : x_vel(0), y_vel(0), x_acc(0), y_acc(0), total_vel(0), toUpdate(true)
+Entity::Entity() : x_vel(0), y_vel(0), x_acc(0), y_acc(0), width(0), height(0)
 {
+	std::cout << "set Gravity in entity class constructor1		Base Class" << std::endl;
+
 }
 
-Entity::Entity(int x_, int y_) : x_vel(0), y_vel(0), x_acc(0), y_acc(0), total_vel(0), toUpdate(true)
+Entity::Entity(int x_, int y_) : x_vel(0), y_vel(0), x_acc(0), y_acc(0), width(0), height(0)
 {
+	std::cout << "set Gravity in player class constructor2		Base Class" << std::endl;
+
 }
 
-Box Entity::getBox() {
-	Box box(x_pos, y_pos, width, height, x_vel, y_vel);
+Box Entity::getBox() const{
+	Box box(x_pos, y_pos, width, height, x_vel, y_vel, x_acc, y_acc);
 	return box;
 }
 
@@ -19,21 +23,18 @@ void Entity::setBox(Box b1) {
 	y_pos = b1.y;
 	x_vel = b1.vx;
 	y_vel = b1.vy;
+	x_acc = b1.ax;
+	y_acc = b1.ay;
 }
 
-void Entity::setToUpdate(bool toUpdate_) {
-	toUpdate = toUpdate_;
+
+void Entity::doPhysics(int elapsed_time_ms, double max_velocity) {
+
+	Box final_box = Physics::actPhysicsOn(elapsed_time_ms, max_velocity, getBox());
+
+	setBox(final_box);
 }
 
-void Entity::doPhysics(int elapsed_time_ms) {
-	
-	x_pos += x_vel * elapsed_time_ms;
-	y_pos += y_vel * elapsed_time_ms;
-
-	x_vel += x_acc * elapsed_time_ms;
-	y_vel += y_acc * elapsed_time_ms;
-
-}
 
 Entity::~Entity()
 {

@@ -1,11 +1,16 @@
 #include "Box.h"
 
 
-Box::Box() : x(0), y(0), w(0), h(0), vx(0), vy(0)
+Box::Box() : x(0), y(0), w(0), h(0), vx(0), vy(0), ax(0), ay(0)
 {
 }
 
-Box::Box(double x_, double y_, double w_, double h_, double vx_, double vy_) : x(x_), y(y_), w(w_), h(h_), vx(vx_), vy(vy_)
+Box::Box(double x_, double y_, double w_, double h_, double vx_, double vy_) : 
+	x(x_), y(y_), w(w_), h(h_), vx(vx_), vy(vy_), ax(0), ay(0)
+{
+}
+Box::Box(double x_, double y_, double w_, double h_, double vx_, double vy_, double ax_, double ay_) : 
+	x(x_), y(y_), w(w_), h(h_), vx(vx_), vy(vy_), ax(ax_), ay(ay_)
 {
 }
 

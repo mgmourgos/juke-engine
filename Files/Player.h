@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "GameActor.h"
 #include "OnGroundState.h"
+//#include "MoveContextState.h"
 #include <memory>
 #include <algorithm>
 
@@ -15,14 +16,12 @@ class Player : public GameActor
 	friend class OnGroundState;
 	friend class JumpingState;
 	friend class FallingState;
+	friend class MoveContextState;
 
 	int xInt, yInt;
 	std::unique_ptr<Sprite> sprite;
 	
-	std::unique_ptr<PlayerState> state;
-
-	//Temporary?
-	OnGroundState on_ground;
+	std::unique_ptr<MoveContextState> move_context_state;
 
 public:
 	Player(Graphics& graphics, int x, int y);
@@ -33,13 +32,10 @@ public:
 
 	void handleCommand(Command& command);
 
-	void setState(PlayerState* new_state);
+	void setMoveContextState(MoveContextState* new_state);
 
 	void moveLeft();
 	void moveRight();
-	void moveUp();
-	void moveDown();
-	void stopMoving();
 	void jump();
 
 	void setJumping(bool);

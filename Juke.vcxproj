@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Files\Box.h" />
+    <ClInclude Include="Files\Collision.h" />
+    <ClInclude Include="Files\CollisionData.h" />
     <ClInclude Include="Files\Command.h" />
     <ClInclude Include="Files\Entity.h" />
     <ClInclude Include="Files\EnvironmentEntity.h" />
@@ -22,15 +24,20 @@
     <ClInclude Include="Files\InputHandler.h" />
     <ClInclude Include="Files\JumpingState.h" />
     <ClInclude Include="Files\MoveCommand.h" />
+    <ClInclude Include="Files\MoveContextState.h" />
     <ClInclude Include="Files\OnGroundState.h" />
     <ClInclude Include="Files\Physics.h" />
     <ClInclude Include="Files\Player.h" />
+    <ClInclude Include="Files\PlayerConstants.h" />
     <ClInclude Include="Files\PlayerState.h" />
     <ClInclude Include="Files\SDL_Deleter.h" />
     <ClInclude Include="Files\Sprite.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Files\Box.cpp" />
+    <ClCompile Include="Files\Collision.cpp" />
+    <ClCompile Include="Files\CollisionData.cpp" />
     <ClCompile Include="Files\Command.cpp" />
     <ClCompile Include="Files\Entity.cpp" />
     <ClCompile Include="Files\EnvironmentEntity.cpp" />
@@ -42,6 +49,7 @@
     <ClCompile Include="Files\JumpingState.cpp" />
     <ClCompile Include="Files\main.cpp" />
     <ClCompile Include="Files\MoveCommand.cpp" />
+    <ClCompile Include="Files\MoveContextState.cpp" />
     <ClCompile Include="Files\OnGroundState.cpp" />
     <ClCompile Include="Files\Physics.cpp" />
     <ClCompile Include="Files\Player.cpp" />
@@ -52,6 +60,9 @@
     <Image Include="Files\Background.png" />
     <Image Include="Files\Platform.bmp" />
     <Image Include="Files\Player.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Juke.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{619C70E0-4870-4DC1-8820-2ABB567343A0}</ProjectGuid>

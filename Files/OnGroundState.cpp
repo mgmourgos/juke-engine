@@ -1,8 +1,8 @@
 #include "OnGroundState.h"
-
-const double maxVelocity = 0.4f;
-const double slowDownFactor = 0.9f;
-const double gravity = 0.0005f;
+#include "PlayerConstants.h"
+//const double MaxVelocity = 0.4f;
+//const double slowDownFactor = 0.9f;
+//const double gravity = 0.0005f;
 
 OnGroundState::OnGroundState()
 {
@@ -17,12 +17,10 @@ void OnGroundState::handleCommand(GameActor& game_actor, Command& command) {
 
 	if (typeid(command) == typeid(MoveRightCommand) ||
 		typeid(command) == typeid(MoveLeftCommand)  ||
-		typeid(command) == typeid(MoveUpCommand)    ||
-		typeid(command) == typeid(MoveDownCommand)  ||
 		typeid(command) == typeid(JumpCommand)) {
 
 		if (typeid(command) == typeid(JumpCommand)) {
-			game_actor.setState(new JumpingState());
+			game_actor.setMoveContextState(new JumpingState());
 		}
 
 		command.execute(game_actor);

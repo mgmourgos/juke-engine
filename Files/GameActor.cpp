@@ -7,6 +7,6 @@ GameActor::GameActor() : jumping(true)
 	id = id_counter++;
 }
 
-GameActor::~GameActor()
-{
+GameActor::~GameActor() {
+
 }

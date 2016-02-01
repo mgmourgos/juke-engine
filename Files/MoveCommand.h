@@ -16,20 +16,6 @@ public:
 	void execute(GameActor& gameactor);
 };
 
-class MoveUpCommand : public Command
-{
-public:
-	MoveUpCommand()  { activation_type = ONHELD; }
-	void execute(GameActor& gameactor);
-};
-
-class MoveDownCommand : public Command
-{
-public:
-	MoveDownCommand()  { activation_type = ONHELD; }
-	void execute(GameActor& gameactor);
-};
-
 class JumpCommand : public Command
 {
 public:

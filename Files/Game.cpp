@@ -6,6 +6,8 @@
 #include <iostream>
 #include "InputHandler.h"
 #include "EnvironmentEntity.h"
+#include "Physics.h"//GET RID OF THIS WHEN COLLISION IS MOVED
+#include "PlayerConstants.h"//GET RID OF THIS WHEN COLLISION IS MOVED
 
 namespace {
 	const int FPS = 60;
@@ -26,7 +28,7 @@ void Game::eventLoop() {
 	Graphics graphics;
 	InputHandler input;
 	
-	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 432);
+	Sprite BackGround(graphics, "Files/Background.bmp", 0, 0, 640, 480);
 
 	std::shared_ptr<Player> player = std::make_shared<Player>(graphics, 320, 240);
 	entity_queue.push_back(player);
@@ -35,8 +37,12 @@ void Game::eventLoop() {
 	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 350, 50, 20);
 	entity_queue.push_back(platform);
 	platform = std::make_shared<EnvironmentEntity>(graphics, 400, 240, 100, 20);
+
+
 	entity_queue.push_back(platform);//All game objects are in the entity queue
 									//All gameActors are in gameActor_queue
+	platform = std::make_shared<EnvironmentEntity>(graphics,35, 450, 500, 400);
+	entity_queue.push_back(platform);
 
 	AllSprites.push_back(BackGround);
 	
@@ -108,6 +114,7 @@ void Game::draw(Graphics& graphics) {
 
 void Game::update(int elapsed_time_ms) {
 	//check collisions
+	//list of collisions for each entity is set
 	for (auto &entity1 : entity_queue) {
 		for (auto &entity2 : entity_queue) {
 			if (entity1 != entity2) {
@@ -115,7 +122,8 @@ void Game::update(int elapsed_time_ms) {
 				bool isCollisionPossible = checkBroadphase(entity1->getBox(), entity2->getBox(), elapsed_time_ms);
 				if (isCollisionPossible) {
 					std::cout << "Possible Collision" << std::endl;
-					doCollision(entity1, entity2);
+					doCollision(entity1, entity2);//changes positions and velocities
+					//entity1->addCollision()
 				}
 				else {
 					//std::cout << "Not Possible" << std::endl;
@@ -124,7 +132,7 @@ void Game::update(int elapsed_time_ms) {
 		}
 	}
 
-
+	//call update on each entity
 	for (auto &entity : entity_queue) {
 		entity->update(elapsed_time_ms);
 	}
@@ -134,7 +142,7 @@ bool Game::checkBroadphase(Box b1, Box b2, int elapsed_time_ms) {
 	if (b1.vx == 0.0f && b1.vy == 0.0f) {//added this so only moving objs are checked
 		return false;
 	}
-	Box broad = doPhysics(b1, elapsed_time_ms);//returns the broadphase box
+	Box broad = getBroadphaseBox(b1, elapsed_time_ms);//returns the broadphase box
 	//broad.print();
 
 	//compare broad with b2;
@@ -155,15 +163,15 @@ bool Game::checkBroadphase(Box b1, Box b2, int elapsed_time_ms) {
 	return true;
 }
 
-Box Game::doPhysics(Box b1, int elapsedTime) {
+Box Game::getBroadphaseBox(Box b1, int elapsedTime) {
 	//returns the box resulting from the x anad y velocities over time
-	Box returnBox;
+	/*Box returnBox;
 	returnBox.x = b1.x + b1.vx * elapsedTime;
 	returnBox.y = b1.y + b1.vy * elapsedTime;
 	returnBox.w = b1.w;
 	returnBox.h = b1.h;
 	/*return returnBox;*/
-
+	Box returnBox = Physics::actPhysicsOn(elapsedTime, MaxVelocity, b1);
 
 	//want this to return the broadphase box...
 	Box box;
@@ -234,6 +242,8 @@ bool Game::doCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2) {
 		if (s3 == true) {
 			//then b1 below b2
 			Box b1After;
+			b1After.ay = b1.ay;
+			b1After.ax = b1.ax;
 			b1After.vx = b1.vx;
 			b1After.y = b2.y + b2.h + .01;
 			double deltaY = b1.y - b1After.y;
@@ -246,6 +256,8 @@ bool Game::doCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2) {
 		else if (s1 == true) {
 			//then b1 above b2
 			Box b1After;
+			b1After.ax = b1.ax;
+			b1After.ay = b1.ay;
 			b1After.vx = b1.vx;
 			b1After.y = b2.y - b1.h - .1;
 			double deltaY = b1After.y + b1.h - b1.y + b1.h;
@@ -260,91 +272,3 @@ bool Game::doCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2) {
 	}
 	return false;
 }
-
-/*
-float Game::SweptAABB(Box b1, Box b2, float &normalx, float &normaly) {
-	//More info: http://www.gamedev.net/page/resources/_/technical/game-programming/swept-aabb-collision-detection-and-response-r3084
-	float xInvEntry, yInvEntry;
-	float xInvExit, yInvExit;
-
-	//Find distance between the objects on the near and far sides for both x and y
-	if (b1.vx > 0.0f) {
-		xInvEntry = b2.x - (b1.x + b1.w);
-		xInvExit = (b2.x + b2.w) - b1.x;
-	}
-	else {
-		xInvEntry = (b2.x + b2.w) - b1.x;
-		xInvExit = b2.x - (b1.x + b1.w);
-	}
-
-	if (b1.vx > 0.0f) {
-		yInvEntry = b2.y - (b1.y + b1.h);
-		yInvExit = (b2.y + b2.h) - b1.y;
-	}
-	else {
-		yInvEntry = (b2.y + b2.h) - b1.y;
-		yInvExit = b2.y - (b1.y + b1.h);
-	}
-
-
-	float xEntry, yEntry;
-	float xExit, yExit;
-
-	//Find time of collision and time of leaving for each axis
-	if (b1.vx == 0.0f) {
-		xEntry = -std::numeric_limits<float>::infinity();
-		xExit = std::numeric_limits<float>::infinity();
-	}
-	else {
-		xEntry = xInvEntry / b1.vx;
-		xExit = xInvExit / b1.vx;
-	}
-	if (b1.vy == 0.0f) {
-		yEntry = -std::numeric_limits<float>::infinity();
-		yExit = std::numeric_limits<float>::infinity();
-	}
-	else {
-		yEntry = yInvEntry / b1.vy;
-		yExit = yInvExit / b1.vy;
-	}
-
-	//find earliest and latest times of collision
-	float entryTime = std::max(xEntry, yEntry);
-	float exitTime = std::min(xExit, yExit);
-	std::cout << entryTime << std::endl;
-
-	//if there was no collision
-	if (entryTime > exitTime || xEntry < 0.0f && yEntry < 0.0f || xEntry > 1.0f || yEntry > 1.0f) {
-		normalx = 0.0f;
-		normaly = 0.0f;
-		//std::cout << "No Collision Detected" << std::endl;
-		return 1.0f;
-	}
-	std::cout << "Collision Detected" << std::endl;
-	//there was a collision, calculate the normal of collided surface
-	if (xEntry > yEntry) {
-		if (xInvEntry < 0.0f) {
-			normalx = 1.0f;
-			normaly = 0.0f;
-		}
-		else {
-			normalx = -1.0f;
-			normaly = 0.0f;
-		}
-	}
-	else {
-		if (yInvEntry) {
-			normalx = 0.0f;
-			normaly = 1.0f;
-		}
-		else {
-			normalx = 0.0f;
-			normaly = -1.0f;
-		}
-	}
-	std::cout << "Collision Detected" << std::endl;
-	return entryTime;
-
-
-
-}*/
