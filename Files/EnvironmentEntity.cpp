@@ -22,8 +22,12 @@ void EnvironmentEntity::draw(Graphics& graphics) {
 }
 
 void EnvironmentEntity::update(int elapsed_time_ms) {
-	/*if (x_pos < -50) {
-		x_pos = 700;
+	/*
+	if (y_pos < 50) {
+		y_pos = 550;
 	}
-	x_pos--;*/
+	y_vel = -.01;
+
+	y_pos += y_vel * elapsed_time_ms;
+	*/
 }

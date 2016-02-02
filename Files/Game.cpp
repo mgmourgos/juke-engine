@@ -46,6 +46,9 @@ void Game::eventLoop() {
 	platform = std::make_shared<EnvironmentEntity>(graphics,35, 450, 500, 400);
 	entity_queue.push_back(platform);
 
+	platform = std::make_shared<EnvironmentEntity>(graphics, 0, 100, 50, 400);
+	entity_queue.push_back(platform);
+
 	AllSprites.push_back(BackGround);
 	
 	bool running = true;

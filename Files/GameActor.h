@@ -4,6 +4,7 @@
 
 class PlayerState;
 class Command;
+class CollisionData;
 
 class GameActor : public Entity
 {
@@ -25,6 +26,9 @@ public:
 	virtual ~GameActor();
 
 	int getId() { return id; }
+
+	void handleCollision(CollisionData& collision_data, int& remaining_time_ms, int elapsed_time_ms);
+
 	virtual void moveLeft() = 0;
 	virtual void moveRight() = 0;
 	virtual void jump() = 0;

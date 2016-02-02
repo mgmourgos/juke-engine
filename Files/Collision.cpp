@@ -12,36 +12,23 @@ Collision::~Collision()
 {
 }
 
-std::unique_ptr<CollisionData> Collision::getCollisionData(const Entity& e1, const Entity& e2, int elapsed_time_ms)
+std::unique_ptr<CollisionData> Collision::getCollisionData(const Entity& entity_1, const Entity& entity_2, int elapsed_time_ms)
 {
 	
 	Box b1, b2;
-	b1 = e1.getBox();
-	b2 = e2.getBox();
+	b1 = entity_1.getBox();
+	b2 = entity_2.getBox();
 
 	if (!isCollisionPossible(b1, b2, elapsed_time_ms))
 	{
 		return nullptr;	//Collision is not possible
 	}
-	
-
-	double x_pos, y_pos;
-	double x_vel_obj, y_vel_obj;
-	//int collision_time;
-	CollisionNormal normal;
-	CollisionType type;
-
-	Box combined_vel_box;
-	combined_vel_box = b1;
-
-	combined_vel_box.vx = b1.vx - b2.vx;
-	combined_vel_box.vy = b1.vy - b2.vy;
 
 	//~~~~~~~~~~~~~~~~~~~~~Finding locational state~~~~~~~~~~~~~~~~~~~~~~
 
-	bool s1, s2, s3, s4;
-	s1 = s2 = s3 = s4 = false;
+	bool is_b1_above_b2, is_b1_left_of_b2, is_b1_below_b2, is_b1_right_of_b2;
 
+	is_b1_above_b2 = is_b1_left_of_b2 = is_b1_below_b2 = is_b1_right_of_b2 = false; //still n00bz...
 
 	/*		State Diagram:
 
@@ -53,26 +40,41 @@ std::unique_ptr<CollisionData> Collision::getCollisionData(const Entity& e1, con
 	2	 |  |	4
 	3	 | 3|	3
 	*/
+
 	//checks which side of b2 b1 is on.
-	if (combined_vel_box.x > (b2.x + b2.w)) {//then b1 is to the right of b2		in state 4
-		//then no collision
-		s4 = true;
+	if (b1.x > (b2.x + b2.w)) {
+		is_b1_right_of_b2 = true;
 	}
 	else
-	if ((combined_vel_box.x + combined_vel_box.w) < b2.x) {//then b1 is to the left of b2		in state 2
-		s2 = true;
+		if ((b1.x + b1.w) < b2.x) {
+		is_b1_left_of_b2 = true;
 	}
 
-	if ((combined_vel_box.y + combined_vel_box.h) < b2.y) {//then b1 is above b2				in state 1
-		s1 = true;
+	if ((b1.y + b1.h) < b2.y) {			
+		is_b1_above_b2 = true;
 	}
 	else
-	if (combined_vel_box.y > (b2.y + b2.h)) {//then b1 is below b2				in state 3
-		s3 = true;
+		if (b1.y > (b2.y + b2.h)) {			
+		is_b1_below_b2 = true;
 	}
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	if (s1)//if b1 above b2
+
+	//~~~~~~~~~~~~~~~~~~~~~~handling collision if there is any~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	Box combined_vel_box;
+	combined_vel_box = b1;
+
+	combined_vel_box.vx = b1.vx - b2.vx;
+	combined_vel_box.vy = b1.vy - b2.vy;
+
+	double x_pos, y_pos;
+	double x_vel_obj, y_vel_obj;
+
+	CollisionNormal normal;
+	CollisionType entity2_collision_type = entity_2.getCollisionType();
+
+
+	if (is_b1_above_b2)//if b1 above b2
 	{
 		
 		//1 set b1new.y = b2.y - b1.h - .01f;
@@ -83,7 +85,7 @@ std::unique_ptr<CollisionData> Collision::getCollisionData(const Entity& e1, con
 			//then normal is BOTTOM
 			//then elapsed time = elapsed time
 			//then colision x and y position = elapsed_time * b1.vx and b1.vy 
-		Box collision_check_box;
+		/*Box collision_check_box;
 		double deltay;
 		int collision_time;
 		collision_check_box = combined_vel_box;
@@ -104,33 +106,102 @@ std::unique_ptr<CollisionData> Collision::getCollisionData(const Entity& e1, con
 				x_vel_obj = b2.vx;
 				y_vel_obj = b2.vy;
 				normal = BOTTOM;
-				type = e1.getCollisionType();
-				std::unique_ptr<CollisionData> p(new CollisionData(x_pos, y_pos, x_vel_obj, y_vel_obj, collision_time, normal, type));
+				entity2_collision_type = entity_2.getCollisionType();
+				std::unique_ptr<CollisionData> p(new CollisionData(x_vel_obj, y_vel_obj, collision_time, normal, entity2_collision_type));
 				return p;
 			}
-		}
+		}*/
+		std::unique_ptr<CollisionData> p_collision_data = determineCollisionData(BOTTOM, b1, b2, entity2_collision_type, elapsed_time_ms);
+		return p_collision_data;
 	}
-	if (s2)
+	if (is_b1_left_of_b2)
 	{
-		
+		std::unique_ptr<CollisionData> p_collision_data = determineCollisionData(RIGHT, b1, b2, entity2_collision_type, elapsed_time_ms);
+		return p_collision_data;
 	}
-	if (s3)
+	if (is_b1_below_b2)
 	{
-		
+		std::unique_ptr<CollisionData> p_collision_data = determineCollisionData(TOP, b1, b2, entity2_collision_type, elapsed_time_ms);
+		return p_collision_data;
 	}
-	if (s4)
+	if (is_b1_right_of_b2)
 	{
-		
+		std::unique_ptr<CollisionData> p_collision_data = determineCollisionData(LEFT, b1, b2, entity2_collision_type, elapsed_time_ms);
+		return p_collision_data;
 	}
 	return nullptr;
-
-
-
-
-
 	//std::unique_ptr<CollisionData> p(new CollisionData(x_pos, y_pos, collision_time, normal));
 	//return p;
 	
+}
+
+std::unique_ptr<CollisionData> Collision::determineCollisionData(CollisionNormal normal, Box b1, Box b2, CollisionType entity_2_collision_type, int elapsed_time_ms)
+{
+	Box combined_vel_box;
+	combined_vel_box = b1;
+
+	combined_vel_box.vx = b1.vx - b2.vx;
+	combined_vel_box.vy = b1.vy - b2.vy;
+
+	double x_pos, y_pos;
+	double x_vel_obj, y_vel_obj;
+
+	double deltay;
+	double delta;
+	int collision_time;
+
+	bool collision_occurs = false;
+
+	Box collision_check_box;
+	collision_check_box = combined_vel_box;
+
+	switch(normal) {
+	
+		case BOTTOM: 
+			collision_check_box.y = b2.y - b1.h;
+			delta = collision_check_box.y - b1.y;
+			break;
+		case TOP:
+			collision_check_box.y = b2.y + b2.h;
+			delta = b1.y - collision_check_box.y;
+			break;
+		case LEFT:
+			collision_check_box.x = b2.x + b2.w;
+			delta = collision_check_box.x - b1.x;
+			break;
+		case RIGHT:
+			collision_check_box.x = b2.x - b1.w;
+			delta = b1.x - collision_check_box.x;
+			break;
+	};
+
+	if (normal == TOP || normal == BOTTOM)
+	{
+		collision_time = fabs(delta / combined_vel_box.vy);
+		collision_check_box.x += combined_vel_box.vx * collision_time;
+		collision_occurs = doesXAxisCollide(collision_check_box, b2);
+
+	}
+	else if (normal == LEFT || normal == RIGHT)
+	{
+		collision_time = fabs(delta / combined_vel_box.vx);
+		collision_check_box.y += combined_vel_box.vy * collision_time;
+		collision_occurs = doesYAxisCollide(collision_check_box, b2);
+
+	}
+
+
+	//Collision definitely occurs
+	if (collision_time < elapsed_time_ms && collision_occurs)
+	{
+			x_vel_obj = b2.vx;
+			y_vel_obj = b2.vy;
+			std::unique_ptr<CollisionData> p(new CollisionData(x_vel_obj, y_vel_obj, collision_time, normal, entity_2_collision_type));
+			return p;
+	}
+
+	return nullptr;
+
 }
 
 bool Collision::doesXAxisCollide(Box b1, Box b2)

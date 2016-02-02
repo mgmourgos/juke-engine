@@ -19,7 +19,6 @@ class Player : public GameActor
 	friend class FallingState;
 	friend class MoveContextState;
 
-	int xInt, yInt;
 	std::unique_ptr<Sprite> sprite;
 	
 	std::unique_ptr<MoveContextState> move_context_state;
@@ -34,6 +33,8 @@ public:
 	void handleCommand(Command& command) override;
 
 	void setMoveContextState(MoveContextState* new_state) override;
+
+	void handlePlayerCollision(CollisionData& collision_data);
 
 	void moveLeft() override;
 	void moveRight() override;

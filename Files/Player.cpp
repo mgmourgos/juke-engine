@@ -45,19 +45,14 @@ void Player::setJumping(bool j_) {
 
 void Player::update(int elapsed_time_ms) {
 
-	int remaining_time_ms = elapsed_time_ms;
+  	int remaining_time_ms = elapsed_time_ms;
 
 	for (auto& collision : collision_vector)
 	{
-		std::cout << "collision x:" << collision->x_pos << std::endl;
-		if (collision->normal == BOTTOM)
-		{
-			y_vel = 0;
-			y_pos = collision->y_pos;
-			remaining_time_ms -= collision->collision_time;
-			move_context_state = std::make_unique<OnGroundState>();
-		}
+		handleCollision(*collision, remaining_time_ms, elapsed_time_ms);
+		handlePlayerCollision(*collision);
 	}
+
 	collision_vector.clear();
 
 	doPhysics(remaining_time_ms, MaxVelocity);
@@ -66,14 +61,6 @@ void Player::update(int elapsed_time_ms) {
 
 	x_acc = 0;//Acceleration is only set actively(by commands)
 			  //So we set it back to zero each frame
-	//y_acc = gravity;
-	/////Temporary
-	/*
-	if (y_pos > 400) {
-		y_pos = 400;
-		y_vel = 0;
-		move_context_state.reset(new OnGroundState());
-	}*/
 }
 
 
@@ -82,7 +69,17 @@ void Player::setMoveContextState(MoveContextState* new_state) {
 }
 
 
+void Player::handlePlayerCollision(CollisionData& collision_data)
+{
+	switch (collision_data.normal)
+	{
+		case BOTTOM:
+			//move_context_state.reset(new OnGroundState());
+			move_context_state = std::make_unique<OnGroundState>();
+			break;
+	};
 
+}
 
 /////Command executions
 void Player::moveLeft() {
