@@ -7,6 +7,7 @@
 //#include "MoveContextState.h"
 #include <memory>
 #include <algorithm>
+//#include "CollisionData.h"
 
 class Command;
 class Graphics;
@@ -27,16 +28,16 @@ public:
 	Player(Graphics& graphics, int x, int y);
 	~Player();
 
-	void draw(Graphics& graphics);
-	void update(int elapsed_time_ms);
+	void draw(Graphics& graphics) override;
+	void update(int elapsed_time_ms) override;
 
-	void handleCommand(Command& command);
+	void handleCommand(Command& command) override;
 
-	void setMoveContextState(MoveContextState* new_state);
+	void setMoveContextState(MoveContextState* new_state) override;
 
-	void moveLeft();
-	void moveRight();
-	void jump();
+	void moveLeft() override;
+	void moveRight() override;
+	void jump() override;
 
 	void setJumping(bool);
 };

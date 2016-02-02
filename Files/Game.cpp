@@ -8,6 +8,8 @@
 #include "EnvironmentEntity.h"
 #include "Physics.h"//GET RID OF THIS WHEN COLLISION IS MOVED
 #include "PlayerConstants.h"//GET RID OF THIS WHEN COLLISION IS MOVED
+#include "Collision.h"//GET RID OF THIS WHEN COLLISION IS MOVED?
+#include "CollisionData.h"
 
 namespace {
 	const int FPS = 60;
@@ -113,23 +115,35 @@ void Game::draw(Graphics& graphics) {
 }
 
 void Game::update(int elapsed_time_ms) {
+	
 	//check collisions
 	//list of collisions for each entity is set
 	for (auto &entity1 : entity_queue) {
-		for (auto &entity2 : entity_queue) {
-			if (entity1 != entity2) {
-				//checkCollision(entity1, entity2);
-				bool isCollisionPossible = checkBroadphase(entity1->getBox(), entity2->getBox(), elapsed_time_ms);
-				if (isCollisionPossible) {
+		//if (entity1->getCollisionType() != UNMOVABLE) {
+			for (auto &entity2 : entity_queue) {
+				if (entity1 != entity2) {
+					//checkCollision(entity1, entity2);
+					std::unique_ptr<CollisionData> data;
+					data = Collision::getCollisionData(*entity1, *entity2, elapsed_time_ms);
+					if (data != nullptr)
+					{
+						entity1->addCollision(std::move(data));
+					}
+					
+					/*
+					bool isCollisionPossible = checkBroadphase(entity1->getBox(), entity2->getBox(), elapsed_time_ms);
+					if (isCollisionPossible) {
 					std::cout << "Possible Collision" << std::endl;
 					doCollision(entity1, entity2);//changes positions and velocities
 					//entity1->addCollision()
-				}
-				else {
+					}
+					else {
 					//std::cout << "Not Possible" << std::endl;
+					}
+					*/
 				}
 			}
-		}
+		//}
 	}
 
 	//call update on each entity

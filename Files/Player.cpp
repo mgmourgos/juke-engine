@@ -45,9 +45,24 @@ void Player::setJumping(bool j_) {
 
 void Player::update(int elapsed_time_ms) {
 
-	doPhysics(elapsed_time_ms, MaxVelocity);
+	int remaining_time_ms = elapsed_time_ms;
 
-	move_context_state->update(*this, elapsed_time_ms);
+	for (auto& collision : collision_vector)
+	{
+		std::cout << "collision x:" << collision->x_pos << std::endl;
+		if (collision->normal == BOTTOM)
+		{
+			y_vel = 0;
+			y_pos = collision->y_pos;
+			remaining_time_ms -= collision->collision_time;
+			move_context_state = std::make_unique<OnGroundState>();
+		}
+	}
+	collision_vector.clear();
+
+	doPhysics(remaining_time_ms, MaxVelocity);
+
+	move_context_state->update(*this, remaining_time_ms);
 
 	x_acc = 0;//Acceleration is only set actively(by commands)
 			  //So we set it back to zero each frame

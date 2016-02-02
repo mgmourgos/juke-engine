@@ -27,6 +27,10 @@ void Entity::setBox(Box b1) {
 	y_acc = b1.ay;
 }
 
+void Entity::addCollision(std::unique_ptr<CollisionData> p)
+{
+	collision_vector.push_back(std::move(p));
+}
 
 void Entity::doPhysics(int elapsed_time_ms, double max_velocity) {
 

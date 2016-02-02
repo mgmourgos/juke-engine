@@ -8,8 +8,12 @@ Box Physics::actPhysicsOn(int elapsed_time_ms, double max_velocity, Box box) {
 
 
 	//Position and Velocity setting
-	box.x += (0.5f) * box.ax * elapsed_time_ms * elapsed_time_ms + box.vx * elapsed_time_ms;
-	box.y += (0.5f) * box.ay * elapsed_time_ms * elapsed_time_ms + box.vy * elapsed_time_ms;
+	//box.x += (0.5f) * box.ax * elapsed_time_ms * elapsed_time_ms + box.vx * elapsed_time_ms;
+	//box.y += (0.5f) * box.ay * elapsed_time_ms * elapsed_time_ms + box.vy * elapsed_time_ms;
+
+	box.x += box.vx * elapsed_time_ms;
+	box.y += box.vy * elapsed_time_ms;
+
 	box.vx += box.ax * elapsed_time_ms;
 	box.vy += box.ay * elapsed_time_ms;
 
