@@ -6,6 +6,8 @@
 #include "CollisionData.h"
 #include <vector>
 
+
+
 class Entity
 {//Includes anything rendered or updated during a frame
 	friend class OnGroundState;
@@ -19,6 +21,18 @@ protected:
 	int width, height;
 	CollisionType type;
 	std::vector <std::unique_ptr<CollisionData>> collision_vector;
+
+	struct CollisionNormals
+	{
+		bool top;
+		bool bottom;
+		bool left;
+		bool right;
+		CollisionNormals() : top(false), bottom(false), left(false), right(false) {}
+		void reset() { top = bottom = left = right = false; }
+	};
+	CollisionNormals collision_normals;
+
 public:
 	virtual void update(int elapsed_time_ms) = 0;
 	virtual void draw(Graphics& graphics) = 0;
@@ -27,6 +41,8 @@ public:
 	Box getBox() const;
 	void setBox(Box b1);
 	void doPhysics(int elapsed_time_ms, double max_velocity);
+
+	void setCollisionNormal(CollisionNormal normal);
 
 	Entity();
 	Entity(int x_, int y_);

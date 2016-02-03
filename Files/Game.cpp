@@ -36,7 +36,9 @@ void Game::eventLoop() {
 	entity_queue.push_back(player);
 	gameActor_queue.push_back(player);
 
-	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 350, 50, 20);
+	
+	//std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 350, 50, 20);
+	/*
 	entity_queue.push_back(platform);
 	platform = std::make_shared<EnvironmentEntity>(graphics, 400, 240, 100, 20);
 
@@ -47,6 +49,37 @@ void Game::eventLoop() {
 	entity_queue.push_back(platform);
 
 	platform = std::make_shared<EnvironmentEntity>(graphics, 0, 100, 50, 400);
+	entity_queue.push_back(platform);
+
+	//short blocks for walking~~~~~~~~~~~~~~~ 
+	
+	platform = std::make_shared<EnvironmentEntity>(graphics, 140, 400, 20, 10);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 160, 400, 20, 10);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 180, 400, 20, 10);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 200, 400, 20, 10);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 220, 400, 20, 10);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 240, 400, 20, 10);
+	entity_queue.push_back(platform);
+
+	platform = std::make_shared<EnvironmentEntity>(graphics, 105, 375, 1, 20);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 105, 362, 1, 10);
+	entity_queue.push_back(platform);
+
+	*/
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 10, 300, 600, 10);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 10, 150, 600, 10);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 20, 120, 10, 300);
+	entity_queue.push_back(platform);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 590, 120, 10, 300);
 	entity_queue.push_back(platform);
 
 	AllSprites.push_back(BackGround);
@@ -132,18 +165,6 @@ void Game::update(int elapsed_time_ms) {
 					{
 						entity1->addCollision(std::move(data));
 					}
-					
-					/*
-					bool isCollisionPossible = checkBroadphase(entity1->getBox(), entity2->getBox(), elapsed_time_ms);
-					if (isCollisionPossible) {
-					std::cout << "Possible Collision" << std::endl;
-					doCollision(entity1, entity2);//changes positions and velocities
-					//entity1->addCollision()
-					}
-					else {
-					//std::cout << "Not Possible" << std::endl;
-					}
-					*/
 				}
 			}
 		//}
@@ -153,139 +174,4 @@ void Game::update(int elapsed_time_ms) {
 	for (auto &entity : entity_queue) {
 		entity->update(elapsed_time_ms);
 	}
-}
-
-bool Game::checkBroadphase(Box b1, Box b2, int elapsed_time_ms) {
-	if (b1.vx == 0.0f && b1.vy == 0.0f) {//added this so only moving objs are checked
-		return false;
-	}
-	Box broad = getBroadphaseBox(b1, elapsed_time_ms);//returns the broadphase box
-	//broad.print();
-
-	//compare broad with b2;
-	if (broad.x > (b2.x + b2.w)) {
-		//then no collision
-		return false;
-	}
-	if ((broad.x + broad.w) < b2.x) {
-		return false;
-	}
-	if ((broad.y + broad.h) < b2.y) {
-		return false;
-	}
-	if (broad.y > (b2.y + b2.h)) {
-		return false;
-	}
-
-	return true;
-}
-
-Box Game::getBroadphaseBox(Box b1, int elapsedTime) {
-	//returns the box resulting from the x anad y velocities over time
-	/*Box returnBox;
-	returnBox.x = b1.x + b1.vx * elapsedTime;
-	returnBox.y = b1.y + b1.vy * elapsedTime;
-	returnBox.w = b1.w;
-	returnBox.h = b1.h;
-	/*return returnBox;*/
-	Box returnBox = Physics::actPhysicsOn(elapsedTime, MaxVelocity, b1);
-
-	//want this to return the broadphase box...
-	Box box;
-	if (b1.vx < 0) {
-		box.x = returnBox.x;
-		box.w = b1.x - returnBox.x + b1.w;
-	}
-	else {
-		box.x = b1.x;
-		box.w = returnBox.x - b1.x + b1.w;
-	}
-
-	if (b1.vy < 0) {
-		box.y = returnBox.y;
-		box.h = b1.y - returnBox.y + b1.h;
-	}
-	else {
-		box.y = b1.y;
-		box.h = returnBox.y - b1.y + b1.h;
-	}
-	return box;
-}
-
-bool Game::doCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2) {
-	//Function implements a swept AABB algorithm
-	Box b1, b2;
-	b1 = e1.get()->getBox();
-	b2 = e2.get()->getBox();
-	if (b1.vx == 0.0f && b1.vy == 0.0f) {//added this so only moving objs are checked
-		return false;
-	}
-
-	bool s1, s2, s3, s4;
-	s1 = s2 = s3 = s4 = false;
-
-
-	/*		State Diagram:
-
-			1	 |1 |	1
-			2	 |  |	4
-			-----~~~~-----
-			2	 |b2|   4
-			-----~~~~-----
-			2	 |  |	4
-			3	 | 3|	3
-	*/
-	//checks which side of b2 b1 is on.
-	if (b1.x > (b2.x + b2.w)) {//then b1 is to the right of b2		in state 4
-		//then no collision
-		s4 = true;
-	} else
-	if ((b1.x + b1.w) < b2.x) {//then b1 is to the left of b2		in state 2
-		s2 = true;
-	}
-
-	if ((b1.y + b1.h) < b2.y) {//then b1 is above b2				in state 1
-		s1 = true;
-	} else
-	if (b1.y > (b2.y + b2.h)) {//then b1 is below b2				in state 3
-		s3 = true;
-	}
-
-	
-
-		//above or below b2 approaching from left   or	 above or below b2 approaching from right
-	if ((b2.x <= b1.x + b1.w && s4 == false) || (b1.x <= b2.x + b2.w && s2 == false))  {
-		//then b1 below b2 but within y axis sides of b2
-		if (s3 == true) {
-			//then b1 below b2
-			Box b1After;
-			b1After.ay = b1.ay;
-			b1After.ax = b1.ax;
-			b1After.vx = b1.vx;
-			b1After.y = b2.y + b2.h + .01;
-			double deltaY = b1.y - b1After.y;
-			//double elapedTime = -(deltaY / b1.vy);
-			//b1After.x = b1.x + elapedTime * b1.vx;
-			b1After.x = b1.x;
-			b1After.vy = 0;
-			e1.get()->setBox(b1After);
-		}
-		else if (s1 == true) {
-			//then b1 above b2
-			Box b1After;
-			b1After.ax = b1.ax;
-			b1After.ay = b1.ay;
-			b1After.vx = b1.vx;
-			b1After.y = b2.y - b1.h - .1;
-			double deltaY = b1After.y + b1.h - b1.y + b1.h;
-			//double elapedTime = (deltaY / b1.vy);
-			//b1After.x = b1.x; //+ elapedTime * b1.vx;
-			b1After.x = b1.x;
-			//b1After.vy = 0;
-			e1.get()->setBox(b1After);
-			//e1.get()->setToUpdate(false); //CHANGES A LOT
-			
-		}
-	}
-	return false;
 }

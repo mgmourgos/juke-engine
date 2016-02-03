@@ -23,13 +23,6 @@ class Game
 	void update(int elapsed_time_ms);
 	void executeCommands();
 
-
-	bool doCollision(std::shared_ptr<Entity> e1, std::shared_ptr<Entity> e2);
-
-	//float SweptAABB(Box b1, Box b2, float &normalx, float &normaly);
-	Box getBroadphaseBox(Box b1, int elapsedTime);
-	bool checkBroadphase(Box b1, Box b2, int elapsed_time_ms);
-
 public:
 	Game();
 	~Game();

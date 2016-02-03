@@ -61,62 +61,17 @@ std::unique_ptr<CollisionData> Collision::getCollisionData(const Entity& entity_
 
 	//~~~~~~~~~~~~~~~~~~~~~~handling collision if there is any~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	Box combined_vel_box;
-	combined_vel_box = b1;
-
-	combined_vel_box.vx = b1.vx - b2.vx;
-	combined_vel_box.vy = b1.vy - b2.vy;
-
-	double x_pos, y_pos;
-	double x_vel_obj, y_vel_obj;
-
-	CollisionNormal normal;
 	CollisionType entity2_collision_type = entity_2.getCollisionType();
-
 
 	if (is_b1_above_b2)//if b1 above b2
 	{
-		
-		//1 set b1new.y = b2.y - b1.h - .01f;
-		//2 find elapsed time to go from b1.y to b1new.y using b1.vy		AND b1.ay????
-		//3 set b1new.x = b1new.vx * elapsed using
-		//4  if boxes collide on x axis
-			//then collision HAS occured
-			//then normal is BOTTOM
-			//then elapsed time = elapsed time
-			//then colision x and y position = elapsed_time * b1.vx and b1.vy 
-		/*Box collision_check_box;
-		double deltay;
-		int collision_time;
-		collision_check_box = combined_vel_box;
-		collision_check_box.y = b2.y - b1.h;// -0.01f;//1
-		deltay = collision_check_box.y - b1.y;
-		std::cout << "combined_vel_box.y:" << combined_vel_box.y << std::endl;
-		std::cout << "combined_vel_box.vy:" << combined_vel_box.vy << std::endl;
-
-		collision_time = deltay / combined_vel_box.vy;//2
-		if (collision_time < elapsed_time_ms)
-		{
-
-			collision_check_box.x += combined_vel_box.vx * collision_time;//3
-			if (doesXAxisCollide(collision_check_box, b2))//4
-			{
-				x_pos = b1.x + b1.vx * collision_time;
-				y_pos = b1.y + b1.vy * (double)collision_time;
-				x_vel_obj = b2.vx;
-				y_vel_obj = b2.vy;
-				normal = BOTTOM;
-				entity2_collision_type = entity_2.getCollisionType();
-				std::unique_ptr<CollisionData> p(new CollisionData(x_vel_obj, y_vel_obj, collision_time, normal, entity2_collision_type));
-				return p;
-			}
-		}*/
 		std::unique_ptr<CollisionData> p_collision_data = determineCollisionData(BOTTOM, b1, b2, entity2_collision_type, elapsed_time_ms);
 		return p_collision_data;
 	}
 	if (is_b1_left_of_b2)
 	{
 		std::unique_ptr<CollisionData> p_collision_data = determineCollisionData(RIGHT, b1, b2, entity2_collision_type, elapsed_time_ms);
+
 		return p_collision_data;
 	}
 	if (is_b1_below_b2)
@@ -130,8 +85,6 @@ std::unique_ptr<CollisionData> Collision::getCollisionData(const Entity& entity_
 		return p_collision_data;
 	}
 	return nullptr;
-	//std::unique_ptr<CollisionData> p(new CollisionData(x_pos, y_pos, collision_time, normal));
-	//return p;
 	
 }
 
@@ -143,12 +96,10 @@ std::unique_ptr<CollisionData> Collision::determineCollisionData(CollisionNormal
 	combined_vel_box.vx = b1.vx - b2.vx;
 	combined_vel_box.vy = b1.vy - b2.vy;
 
-	double x_pos, y_pos;
 	double x_vel_obj, y_vel_obj;
 
-	double deltay;
 	double delta;
-	int collision_time;
+	double collision_time;
 
 	bool collision_occurs = false;
 

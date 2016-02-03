@@ -49,11 +49,17 @@ void Player::update(int elapsed_time_ms) {
 
 	for (auto& collision : collision_vector)
 	{
+		setCollisionNormal(collision->normal);
+	}
+
+	for (auto& collision : collision_vector)
+	{
 		handleCollision(*collision, remaining_time_ms, elapsed_time_ms);
 		handlePlayerCollision(*collision);
 	}
 
 	collision_vector.clear();
+	collision_normals.reset();
 
 	doPhysics(remaining_time_ms, MaxVelocity);
 

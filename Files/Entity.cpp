@@ -27,6 +27,24 @@ void Entity::setBox(Box b1) {
 	y_acc = b1.ay;
 }
 
+void Entity::setCollisionNormal(CollisionNormal normal)
+{
+	switch(normal) {
+		case TOP:
+			collision_normals.top = true;
+			break;
+		case BOTTOM:
+			collision_normals.bottom = true;
+			break;
+		case LEFT:
+			collision_normals.left = true;
+			break;
+		case RIGHT:
+			collision_normals.right = true;
+			break;
+	};
+}
+
 void Entity::addCollision(std::unique_ptr<CollisionData> p)
 {
 	collision_vector.push_back(std::move(p));
