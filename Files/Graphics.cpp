@@ -48,7 +48,7 @@ std::shared_ptr<SDL_Texture> Graphics::loadImage(const std::string& file_path) {
 }
 
 
-void Graphics::draw(SDL_Texture* ptr_, SDL_Rect source_rect, SDL_Rect dest_rect) {
+void Graphics::draw(SDL_Texture* ptr_, SDL_Rect source_rect, SDL_Rect dest_rect) const {
 	SDL_RenderCopy(mainRenderer.get(), ptr_, &source_rect, &dest_rect);
 }
 

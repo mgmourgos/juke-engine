@@ -35,7 +35,7 @@ protected:
 
 public:
 	virtual void update(int elapsed_time_ms) = 0;
-	virtual void draw(Graphics& graphics) = 0;
+	virtual void draw(const Graphics& graphics) const = 0;
 	CollisionType getCollisionType() const { return type; };
 	void addCollision(std::unique_ptr<CollisionData>);
 	Box getBox() const;

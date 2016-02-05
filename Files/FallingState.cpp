@@ -10,7 +10,7 @@ FallingState::~FallingState()
 {
 }
 
-void FallingState::handleCommand(GameActor& game_actor, Command& command) {
+void FallingState::handleCommand(GameActor& game_actor, const Command& command) {
 	if (typeid(command) == typeid(MoveRightCommand) ||
 		typeid(command) == typeid(MoveLeftCommand)) {
 		command.execute(game_actor);

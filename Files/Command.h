@@ -10,7 +10,7 @@ public:
 
 	Command();
 	~Command();
-	virtual void execute(GameActor& gameactor) = 0;
+	virtual void execute(GameActor& gameactor) const = 0;
 
 	ActivationType getActivationType();
 

@@ -8,7 +8,7 @@ public:
 	FallingState();
 	~FallingState();
 
-	void handleCommand(GameActor& game_actor, Command& command)override;
+	void handleCommand(GameActor& game_actor, const Command& command) override;
 	void update(GameActor& game_actor, const int elapsed_time_ms) override;
 
 	//Overloaded functions from MoveContextState

@@ -10,7 +10,7 @@ JumpingState::~JumpingState()
 {
 }
 
-void JumpingState::handleCommand(GameActor& game_actor, Command& command) {
+void JumpingState::handleCommand(GameActor& game_actor, const Command& command) {
 
 	if (typeid(command) == typeid(MoveRightCommand) ||
 		typeid(command) == typeid(MoveLeftCommand)) {

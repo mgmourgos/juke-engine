@@ -27,12 +27,12 @@ public:
 
 	int getId() { return id; }
 
-	void handleCollision(CollisionData& collision_data, int& remaining_time_ms, int elapsed_time_ms);
+	void handleCollision(CollisionData& collision_data, int& remaining_time_ms);
 
 	virtual void moveLeft() = 0;
 	virtual void moveRight() = 0;
 	virtual void jump() = 0;
-	virtual void handleCommand(Command& command) = 0;
+	virtual void handleCommand(const Command& command) = 0;
 
 	virtual void setMoveContextState(MoveContextState* new_state) = 0;
 };

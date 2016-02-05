@@ -17,7 +17,7 @@ EnvironmentEntity::~EnvironmentEntity()
 {
 }
 
-void EnvironmentEntity::draw(Graphics& graphics) {
+void EnvironmentEntity::draw(const Graphics& graphics) const {
 	sprite->draw(graphics, (int)round(x_pos), (int)round(y_pos));
 }
 

@@ -27,10 +27,10 @@ public:
 	Player(Graphics& graphics, int x, int y);
 	~Player();
 
-	void draw(Graphics& graphics) override;
+	void draw(const Graphics& graphics) const override;
 	void update(int elapsed_time_ms) override;
 
-	void handleCommand(Command& command) override;
+	void handleCommand(const Command& command) override;
 
 	void setMoveContextState(MoveContextState* new_state) override;
 

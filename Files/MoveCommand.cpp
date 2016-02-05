@@ -1,14 +1,14 @@
 #include "MoveCommand.h"
 
-void MoveLeftCommand::execute(GameActor& gameactor) {
+void MoveLeftCommand::execute(GameActor& gameactor) const {
 	gameactor.moveLeft();
 }
 
-void MoveRightCommand::execute(GameActor& gameactor) {
+void MoveRightCommand::execute(GameActor& gameactor) const {
 	gameactor.moveRight();
 }
 
-void JumpCommand::execute(GameActor& gameactor) {
+void JumpCommand::execute(GameActor& gameactor) const {
 	gameactor.jump();
 }
 

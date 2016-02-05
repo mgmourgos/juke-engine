@@ -13,7 +13,7 @@ OnGroundState::~OnGroundState()
 {
 }
 
-void OnGroundState::handleCommand(GameActor& game_actor, Command& command) {
+void OnGroundState::handleCommand(GameActor& game_actor, const Command& command) {
 
 	if (typeid(command) == typeid(MoveRightCommand) ||
 		typeid(command) == typeid(MoveLeftCommand)  ||

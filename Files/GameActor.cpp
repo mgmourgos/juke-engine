@@ -11,7 +11,7 @@ GameActor::~GameActor() {
 
 }
 
-void GameActor::handleCollision(CollisionData& collision_data, int& remaining_time_ms, int elapsed_time_ms)
+void GameActor::handleCollision(CollisionData& collision_data, int& remaining_time_ms)
 {
 	collision_data.collision_time -= .000000001;//offsets the position to right before the collision
 	if (collision_data.normal == BOTTOM || collision_data.normal == TOP)
@@ -21,7 +21,6 @@ void GameActor::handleCollision(CollisionData& collision_data, int& remaining_ti
 		//can't move in x if colliding with obj in x velocity direction
 		if ( !(collision_normals.left && x_vel < 0) && !(collision_normals.right && x_vel > 0) )
 		{
-			std::cout << "in if statement" << std::endl;
 			x_pos += collision_data.collision_time * x_vel;
 		}
 

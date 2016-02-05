@@ -20,7 +20,7 @@ Sprite::Sprite(Graphics& graphics, const std::string& file_path,
 }
 
 
-void Sprite::draw(Graphics& graphics, int x, int y) {
+void Sprite::draw(const Graphics& graphics, int x, int y) const {
 
 	SDL_Rect destination_rectangle;
 	destination_rectangle.x = x;

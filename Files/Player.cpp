@@ -28,12 +28,12 @@ Player::~Player()
 {
 }
 
-void Player::draw(Graphics& graphics) {
-	sprite->draw(graphics, (int)round(x_pos), (int)round(y_pos));
+void Player::draw(const Graphics& graphics) const{
+	sprite->draw(graphics, round(x_pos), round(y_pos));
 }
 
 
-void Player::handleCommand(Command& command) {
+void Player::handleCommand(const Command& command) {
 	move_context_state->handleCommand(*this, command);
 }
 
@@ -54,7 +54,7 @@ void Player::update(int elapsed_time_ms) {
 
 	for (auto& collision : collision_vector)
 	{
-		handleCollision(*collision, remaining_time_ms, elapsed_time_ms);
+		handleCollision(*collision, remaining_time_ms);
 		handlePlayerCollision(*collision);
 	}
 
