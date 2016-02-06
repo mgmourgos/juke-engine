@@ -3,6 +3,6 @@
 
 namespace Physics
 {
-	Box actPhysicsOn(int elapsed_time_ms, double maxVelocity, Box box);
+	Box actPhysicsOn(double elapsed_time_ms, double maxVelocity, Box box);
 };
 

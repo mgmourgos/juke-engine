@@ -50,7 +50,7 @@ void Entity::addCollision(std::unique_ptr<CollisionData> p)
 	collision_vector.push_back(std::move(p));
 }
 
-void Entity::doPhysics(int elapsed_time_ms, double max_velocity) {
+void Entity::doPhysics(double elapsed_time_ms, double max_velocity) {
 
 	Box final_box = Physics::actPhysicsOn(elapsed_time_ms, max_velocity, getBox());
 

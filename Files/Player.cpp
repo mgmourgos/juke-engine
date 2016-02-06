@@ -45,7 +45,7 @@ void Player::setJumping(bool j_) {
 
 void Player::update(int elapsed_time_ms) {
 
-  	int remaining_time_ms = elapsed_time_ms;
+  	double remaining_time_ms = elapsed_time_ms;
 
 	for (auto& collision : collision_vector)
 	{
@@ -54,7 +54,7 @@ void Player::update(int elapsed_time_ms) {
 
 	for (auto& collision : collision_vector)
 	{
-		handleCollision(*collision, remaining_time_ms);
+		handleCollision(*collision, remaining_time_ms, elapsed_time_ms);
 		handlePlayerCollision(*collision);
 	}
 

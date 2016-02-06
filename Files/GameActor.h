@@ -27,7 +27,7 @@ public:
 
 	int getId() { return id; }
 
-	void handleCollision(CollisionData& collision_data, int& remaining_time_ms);
+	void handleCollision(CollisionData& collision_data, double& remaining_time_ms, int elapsed_time_ms);
 
 	virtual void moveLeft() = 0;
 	virtual void moveRight() = 0;

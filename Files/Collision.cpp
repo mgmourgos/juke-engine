@@ -129,6 +129,13 @@ std::unique_ptr<CollisionData> Collision::determineCollisionData(CollisionNormal
 	if (normal == TOP || normal == BOTTOM)
 	{
 		collision_time = fabs(delta / combined_vel_box.vy);
+		if (normal == BOTTOM && combined_vel_box.vy < 0)
+		{
+			std::cout << "not colliding" << std::endl;
+			//return no collision because distance between b1 and b2is increasing
+			return nullptr;
+		}
+		
 		collision_check_box.x += combined_vel_box.vx * collision_time;
 		collision_occurs = doesXAxisCollide(collision_check_box, b2);
 

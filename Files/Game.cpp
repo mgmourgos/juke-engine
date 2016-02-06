@@ -37,15 +37,15 @@ void Game::eventLoop() {
 	gameActor_queue.push_back(player);
 
 	
-	//std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 350, 50, 20);
-	/*
+	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 350, 50, 20);
+	
 	entity_queue.push_back(platform);
 	platform = std::make_shared<EnvironmentEntity>(graphics, 400, 240, 100, 20);
 
 
 	entity_queue.push_back(platform);//All game objects are in the entity queue
 									//All gameActors are in gameActor_queue
-	platform = std::make_shared<EnvironmentEntity>(graphics,35, 450, 500, 400);
+	platform = std::make_shared<EnvironmentEntity>(graphics,35, 450, 500, 40);
 	entity_queue.push_back(platform);
 
 	platform = std::make_shared<EnvironmentEntity>(graphics, 0, 100, 50, 400);
@@ -71,8 +71,9 @@ void Game::eventLoop() {
 	platform = std::make_shared<EnvironmentEntity>(graphics, 105, 362, 1, 10);
 	entity_queue.push_back(platform);
 
-	*/
+	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	/*
 	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 10, 300, 600, 10);
 	entity_queue.push_back(platform);
 	platform = std::make_shared<EnvironmentEntity>(graphics, 10, 150, 600, 10);
@@ -80,7 +81,7 @@ void Game::eventLoop() {
 	platform = std::make_shared<EnvironmentEntity>(graphics, 20, 120, 10, 300);
 	entity_queue.push_back(platform);
 	platform = std::make_shared<EnvironmentEntity>(graphics, 590, 120, 10, 300);
-	entity_queue.push_back(platform);
+	entity_queue.push_back(platform);*/
 
 	AllSprites.push_back(BackGround);
 	

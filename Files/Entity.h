@@ -40,7 +40,7 @@ public:
 	void addCollision(std::unique_ptr<CollisionData>);
 	Box getBox() const;
 	void setBox(Box b1);
-	void doPhysics(int elapsed_time_ms, double max_velocity);
+	void doPhysics(double elapsed_time_ms, double max_velocity);
 
 	void setCollisionNormal(CollisionNormal normal);
 

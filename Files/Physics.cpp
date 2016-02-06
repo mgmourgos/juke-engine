@@ -1,7 +1,7 @@
 #include "Physics.h"
 #include <algorithm>
 
-Box Physics::actPhysicsOn(int elapsed_time_ms, double max_velocity, Box box) {
+Box Physics::actPhysicsOn(double elapsed_time_ms, double max_velocity, Box box) {
 	//this is called in:
 	//	Entity.cpp	Entity.doPhysics()
 	//  Game.cpp	Game.doPhysics()
