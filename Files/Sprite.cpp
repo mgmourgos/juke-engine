@@ -9,7 +9,6 @@ Sprite::Sprite(Graphics& graphics, const std::string& file_path,
 
 	sprite_sheet.reset(graphics.loadImage(file_path).get(), SDL_Deleter());
 
-	std::cout << "sprite_sheet add: " << sprite_sheet.get() << std::endl;
 	if (!sprite_sheet) {
 		std::cout << "ptr is not a valid pointer.\n" << std::endl;
 	}

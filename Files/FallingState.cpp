@@ -1,5 +1,6 @@
 #include "FallingState.h"
 #include "PlayerConstants.h"
+#include "OnGroundState.h"
 
 FallingState::FallingState()
 {
@@ -18,6 +19,11 @@ void FallingState::handleCommand(GameActor& game_actor, const Command& command) 
 }
 
 void FallingState::update(GameActor& game_actor, const int elapsed_time_ms) {
+
+	if (game_actor.collision_normals.bottom == true)
+	{
+		game_actor.setMoveContextState(new OnGroundState());
+	}
 }
 
 void FallingState::moveLeft(GameActor& game_actor) {

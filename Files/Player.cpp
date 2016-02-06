@@ -1,12 +1,5 @@
 #include "Player.h"
 #include "PlayerConstants.h"
-/*
-const double MaxVelocity = 0.4f; // pixels / ms
-//const float moveAcceleration = 0.0012f; // (pixels / ms) / ms
-const float moveAcceleration = 0.0005f; // (pixels / ms) / ms
-const double slowDownFactor = 0.9f;
-const double jumpVelocity = 0.4f;
-const double gravity = 0.0005f;*/
 
 Player::Player(Graphics& graphics, int x_, int y_)
 {
@@ -14,7 +7,6 @@ Player::Player(Graphics& graphics, int x_, int y_)
 	y_pos = y_;
 
 	y_acc = gravity;
-	std::cout << "set Gravity in player class constructor		Derived Class" << std::endl;
 
 	width = 25;
 	height = 32;
@@ -55,11 +47,9 @@ void Player::update(int elapsed_time_ms) {
 	for (auto& collision : collision_vector)
 	{
 		handleCollision(*collision, remaining_time_ms, elapsed_time_ms);
-		handlePlayerCollision(*collision);
 	}
 
 	collision_vector.clear();
-	collision_normals.reset();
 
 	doPhysics(remaining_time_ms, MaxVelocity);
 
@@ -67,24 +57,13 @@ void Player::update(int elapsed_time_ms) {
 
 	x_acc = 0;//Acceleration is only set actively(by commands)
 			  //So we set it back to zero each frame
+
+	collision_normals.reset();
 }
 
 
 void Player::setMoveContextState(MoveContextState* new_state) {
 	move_context_state.reset(new_state);
-}
-
-
-void Player::handlePlayerCollision(CollisionData& collision_data)
-{
-	switch (collision_data.normal)
-	{
-		case BOTTOM:
-			//move_context_state.reset(new OnGroundState());
-			move_context_state = std::make_unique<OnGroundState>();
-			break;
-	};
-
 }
 
 /////Command executions

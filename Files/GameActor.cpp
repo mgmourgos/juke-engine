@@ -13,24 +13,27 @@ GameActor::~GameActor() {
 
 void GameActor::handleCollision(CollisionData& collision_data, double& remaining_time_ms, int elapsed_time_ms)
 {
-	std::cout << y_vel << std::endl;
 	collision_data.collision_time -= .000000001;//offsets the position to right before the collision
 	if (collision_data.normal == BOTTOM || collision_data.normal == TOP)
 	{
 		y_pos += collision_data.collision_time * y_vel;
-		y_vel = collision_data.y_vel_obj;
-		
-		//y_pos += (collision_data.y_vel_obj) * (collision_data.collision_time);
-		
 
-
+		//y_vel matches that of object if player is on top of rising platform, or
+		//player is below falling platform
+		if (collision_data.normal == BOTTOM && collision_data.y_vel_obj < 0 ||
+			collision_data.normal == TOP && collision_data.y_vel_obj > 0) {  
+			
+			y_vel = collision_data.y_vel_obj;
+		} else
+		{
+			y_vel = 0;
+		}
+		
 		//can't move in x if colliding with obj in x velocity direction
 		if ( !(collision_normals.left && x_vel < 0) && !(collision_normals.right && x_vel > 0) )
 		{
 			x_pos += collision_data.collision_time * x_vel;
 		}
-
-		//y_vel = 0;
 		
 		remaining_time_ms -= collision_data.collision_time;
 	}

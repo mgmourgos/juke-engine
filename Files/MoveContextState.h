@@ -1,7 +1,6 @@
 #pragma once
 #include "PlayerState.h"
-//#include "Player.h"
-//#include "GameActor.h"
+
 class MoveContextState :
 	public PlayerState
 {

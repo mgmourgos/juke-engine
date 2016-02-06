@@ -1,13 +1,8 @@
 #pragma once
 #include <memory>
-#include <algorithm>
 #include "Sprite.h"
 #include "GameActor.h"
 #include "OnGroundState.h"
-//#include "MoveContextState.h"
-#include <memory>
-#include <algorithm>
-//#include "CollisionData.h"
 
 class Command;
 class Graphics;
@@ -33,8 +28,6 @@ public:
 	void handleCommand(const Command& command) override;
 
 	void setMoveContextState(MoveContextState* new_state) override;
-
-	void handlePlayerCollision(CollisionData& collision_data);
 
 	void moveLeft() override;
 	void moveRight() override;

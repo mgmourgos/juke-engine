@@ -131,7 +131,6 @@ std::unique_ptr<CollisionData> Collision::determineCollisionData(CollisionNormal
 		collision_time = fabs(delta / combined_vel_box.vy);
 		if (normal == BOTTOM && combined_vel_box.vy < 0)
 		{
-			std::cout << "not colliding" << std::endl;
 			//return no collision because distance between b1 and b2is increasing
 			return nullptr;
 		}

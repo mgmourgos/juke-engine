@@ -3,14 +3,10 @@
 
 Entity::Entity() : x_vel(0), y_vel(0), x_acc(0), y_acc(0), width(0), height(0)
 {
-	std::cout << "set Gravity in entity class constructor1		Base Class" << std::endl;
-
 }
 
 Entity::Entity(int x_, int y_) : x_vel(0), y_vel(0), x_acc(0), y_acc(0), width(0), height(0)
 {
-	std::cout << "set Gravity in player class constructor2		Base Class" << std::endl;
-
 }
 
 Box Entity::getBox() const{
