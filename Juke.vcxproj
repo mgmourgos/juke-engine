@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Files\Box.h" />
+    <ClInclude Include="Files\Camera.h" />
     <ClInclude Include="Files\Collision.h" />
     <ClInclude Include="Files\CollisionData.h" />
     <ClInclude Include="Files\Command.h" />
@@ -20,6 +21,7 @@
     <ClInclude Include="Files\FallingState.h" />
     <ClInclude Include="Files\Game.h" />
     <ClInclude Include="Files\GameActor.h" />
+    <ClInclude Include="Files\GameConstants.h" />
     <ClInclude Include="Files\Graphics.h" />
     <ClInclude Include="Files\InputHandler.h" />
     <ClInclude Include="Files\JumpingState.h" />
@@ -30,12 +32,14 @@
     <ClInclude Include="Files\Player.h" />
     <ClInclude Include="Files\PlayerConstants.h" />
     <ClInclude Include="Files\PlayerState.h" />
+    <ClInclude Include="Files\Scene.h" />
     <ClInclude Include="Files\SDL_Deleter.h" />
     <ClInclude Include="Files\Sprite.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Files\Box.cpp" />
+    <ClCompile Include="Files\Camera.cpp" />
     <ClCompile Include="Files\Collision.cpp" />
     <ClCompile Include="Files\CollisionData.cpp" />
     <ClCompile Include="Files\Command.cpp" />
@@ -54,6 +58,7 @@
     <ClCompile Include="Files\Physics.cpp" />
     <ClCompile Include="Files\Player.cpp" />
     <ClCompile Include="Files\PlayerState.cpp" />
+    <ClCompile Include="Files\Scene.cpp" />
     <ClCompile Include="Files\Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>

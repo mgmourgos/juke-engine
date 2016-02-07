@@ -17,17 +17,17 @@ EnvironmentEntity::~EnvironmentEntity()
 {
 }
 
-void EnvironmentEntity::draw(const Graphics& graphics) const {
-	sprite->draw(graphics, (int)round(x_pos), (int)round(y_pos));
+void EnvironmentEntity::draw(const Graphics& graphics, int x_render_pos, int y_render_pos) const {
+	sprite->draw(graphics, x_render_pos, y_render_pos);
 }
 
 void EnvironmentEntity::update(int elapsed_time_ms) {
 	
-	if (y_pos < 50) {
-		y_pos = 550;
+	/*if (y_pos > 480) {
+		y_pos = 0;
 	}
-	y_vel = -.01;
+	y_vel = .01;
 
-	y_pos += y_vel * elapsed_time_ms;
+	y_pos += y_vel * elapsed_time_ms;*/
 	
 }

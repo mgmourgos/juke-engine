@@ -20,8 +20,8 @@ void GameActor::handleCollision(CollisionData& collision_data, double& remaining
 
 		//y_vel matches that of object if player is on top of rising platform, or
 		//player is below falling platform
-		if (collision_data.normal == BOTTOM && collision_data.y_vel_obj < 0 ||
-			collision_data.normal == TOP && collision_data.y_vel_obj > 0) {  
+		if (collision_data.normal == BOTTOM && collision_data.y_vel_obj > 0 ||
+			collision_data.normal == TOP && collision_data.y_vel_obj < 0) {  
 			
 			y_vel = collision_data.y_vel_obj;
 		} else
@@ -44,7 +44,7 @@ void GameActor::handleCollision(CollisionData& collision_data, double& remaining
 
 		//can't move in y if colliding with obj in y velocity direction
 
-		if (!(collision_normals.bottom && y_vel > 0) && !(collision_normals.top && y_vel < 0))
+		if (!(collision_normals.bottom && y_vel < 0) && !(collision_normals.top && y_vel > 0))  //clear this up
 		{
 			y_pos += collision_data.collision_time * y_vel;
 		}

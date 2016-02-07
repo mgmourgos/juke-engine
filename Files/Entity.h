@@ -14,6 +14,8 @@ class Entity
 	friend class JumpingState;
 	friend class FallingState;
 	friend class MoveContextState;
+	friend class Camera;
+
 protected:
 	double x_pos, y_pos;
 	double x_vel, y_vel;
@@ -35,11 +37,14 @@ protected:
 
 public:
 	virtual void update(int elapsed_time_ms) = 0;
-	virtual void draw(const Graphics& graphics) const = 0;
+	virtual void draw(const Graphics& graphics, int x_render_pos, int y_render_pos) const = 0;
+
 	CollisionType getCollisionType() const { return type; };
 	void addCollision(std::unique_ptr<CollisionData>);
+
 	Box getBox() const;
 	void setBox(Box b1);
+
 	void doPhysics(double elapsed_time_ms, double max_velocity);
 
 	void setCollisionNormal(CollisionNormal normal);

@@ -22,7 +22,7 @@ public:
 	Player(Graphics& graphics, int x, int y);
 	~Player();
 
-	void draw(const Graphics& graphics) const override;
+	void draw(const Graphics& graphics, int x_render_pos, int y_render_pos) const override;
 	void update(int elapsed_time_ms) override;
 
 	void handleCommand(const Command& command) override;

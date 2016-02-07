@@ -1,22 +1,16 @@
 #pragma once
 #include <vector>
 #include "Graphics.h"
-#include "Sprite.h"
-#include "Player.h"
 #include "Command.h"
-#include "Entity.h"
-#include "Box.h"
+#include "Scene.h"
 
-//class Sprite;
 class Graphics;
 
 class Game
 {
 	std::vector<std::shared_ptr<Command>> command_queue;
-	std::vector<Sprite> AllSprites;
-	std::vector<std::shared_ptr<Entity>> entity_queue;
-	std::vector < std::shared_ptr<GameActor>>gameActor_queue;
-	//Sprite BackGround;
+
+	std::unique_ptr<Scene> current_scene;
 
 	void eventLoop();
 	void draw(Graphics& graphics);

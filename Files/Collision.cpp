@@ -50,11 +50,11 @@ std::unique_ptr<CollisionData> Collision::getCollisionData(const Entity& entity_
 		is_b1_left_of_b2 = true;
 	}
 
-	if ((b1.y + b1.h) < b2.y) {			
+	if ((b1.y - b1.h) > b2.y) {			
 		is_b1_above_b2 = true;
 	}
 	else
-		if (b1.y > (b2.y + b2.h)) {			
+		if (b1.y < (b2.y - b2.h)) {			
 		is_b1_below_b2 = true;
 	}
 
@@ -109,11 +109,11 @@ std::unique_ptr<CollisionData> Collision::determineCollisionData(CollisionNormal
 	switch(normal) {
 	
 		case BOTTOM: 
-			collision_check_box.y = b2.y - b1.h;
+			collision_check_box.y = b2.y + b1.h;
 			delta = collision_check_box.y - b1.y;
 			break;
 		case TOP:
-			collision_check_box.y = b2.y + b2.h;
+			collision_check_box.y = b2.y - b2.h;
 			delta = b1.y - collision_check_box.y;
 			break;
 		case LEFT:
@@ -129,9 +129,9 @@ std::unique_ptr<CollisionData> Collision::determineCollisionData(CollisionNormal
 	if (normal == TOP || normal == BOTTOM)
 	{
 		collision_time = fabs(delta / combined_vel_box.vy);
-		if (normal == BOTTOM && combined_vel_box.vy < 0)
+		if (normal == BOTTOM && combined_vel_box.vy > 0)
 		{
-			//return no collision because distance between b1 and b2is increasing
+			//return no collision because distance between b1 and b2 is increasing
 			return nullptr;
 		}
 		
@@ -178,11 +178,11 @@ bool Collision::doesXAxisCollide(Box b1, Box b2)
 bool Collision::doesYAxisCollide(Box b1, Box b2)
 {
 	//Checks whether or not b1 and b2 overlap when projected onto the Y axis
-	if ((b1.y + b1.h) < b2.y)
+	if ((b1.y - b1.h) > b2.y)
 	{
 		return false; //b1 above b2
 	}
-	if (b1.y > (b2.y + b2.h))
+	if (b1.y < (b2.y - b2.h))
 	{
 		return false; //b1 below b2
 	}
@@ -202,10 +202,10 @@ bool Collision::isCollisionPossible(Box b1, Box b2, int elapsed_time_ms)
 	if ((broad1.x + broad1.w) < broad2.x) {
 		return false;
 	}
-	if ((broad1.y + broad1.h) < broad2.y) {
+	if ((broad1.y - broad1.h) > broad2.y) {
 		return false;
 	}
-	if (broad1.y > (broad2.y + broad2.h)) {
+	if (broad1.y < (broad2.y - broad2.h)) {
 		return false;
 	}
 
@@ -227,11 +227,11 @@ Box Collision::getBroadphaseBox(Box b1, int elapsedTime)
 	}
 
 	if (b1.vy < 0) {
-		broad.y = returnBox.y;
+		broad.y = b1.y;
 		broad.h = b1.y - returnBox.y + b1.h;
 	}
 	else {
-		broad.y = b1.y;
+		broad.y = returnBox.y;
 		broad.h = returnBox.y - b1.y + b1.h;
 	}
 	return broad;

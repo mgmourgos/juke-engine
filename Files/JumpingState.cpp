@@ -21,7 +21,7 @@ void JumpingState::handleCommand(GameActor& game_actor, const Command& command) 
 }
 
 void JumpingState::update(GameActor& game_actor, const int elapsed_time_ms) {
-	if (game_actor.y_vel > 0) {
+	if (game_actor.y_vel < 0) {
 		game_actor.setMoveContextState(new FallingState());
 	}
 	else if (game_actor.collision_normals.bottom == true)

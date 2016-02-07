@@ -20,8 +20,8 @@ Player::~Player()
 {
 }
 
-void Player::draw(const Graphics& graphics) const{
-	sprite->draw(graphics, round(x_pos), round(y_pos));
+void Player::draw(const Graphics& graphics, int x_render_pos, int y_render_pos) const {
+	sprite->draw(graphics, x_render_pos, y_render_pos);
 }
 
 

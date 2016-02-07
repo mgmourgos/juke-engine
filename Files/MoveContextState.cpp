@@ -15,5 +15,5 @@ void MoveContextState::moveRight(GameActor& game_actor) {
 }
 
 void MoveContextState::jump(GameActor& game_actor) {
-	game_actor.y_vel = -jumpVelocity;
+	game_actor.y_vel = jumpVelocity;
 }
