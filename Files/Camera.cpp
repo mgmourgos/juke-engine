@@ -4,7 +4,7 @@
 #include "Scene.h"
 #include "GameConstants.h"
 
-const double PLAYER_X_BOUND_PERCENTAGE = .3;
+const double PLAYER_X_BOUND_PERCENTAGE = .4;
 const double PLAYER_Y_BOUND_PERCENTAGE = .3;
 
 Camera::Camera(int x_pos_, int y_pos_) : x_pos(x_pos_), y_pos(y_pos_), x_vel(0), y_vel(0), x_acc(0), y_acc(0)

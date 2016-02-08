@@ -34,6 +34,8 @@ std::shared_ptr<SDL_Texture> Graphics::loadImage(const std::string& file_path) {
 			return NULL;
 		}
 
+		SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB(tempSurface->format, 100, 200, 50));
+
 		SDL_Texture* texture = SDL_CreateTextureFromSurface(mainRenderer.get(), tempSurface);
 
 		sprite_sheets[file_path].reset(texture, SDL_Deleter());

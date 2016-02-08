@@ -10,7 +10,7 @@ Player::Player(Graphics& graphics, int x_, int y_)
 
 	width = 25;
 	height = 32;
-	sprite.reset(new Sprite(graphics, "Files/Player.bmp", 0, 0, width, height));
+	sprite.reset(new Sprite(graphics, "Files/ghostSheet.bmp", 0, 0, width, height));
 
 	move_context_state = std::make_unique<OnGroundState>();
 }

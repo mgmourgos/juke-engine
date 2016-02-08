@@ -9,7 +9,7 @@ EnvironmentEntity::EnvironmentEntity(Graphics& graphics, int x_, int y_, int wid
 	height = height_;
 	x_vel = 0;
 	y_vel = 0;
-	sprite.reset(new Sprite(graphics, "Files/Platform.bmp", 0, 0, width, height));
+	sprite.reset(new Sprite(graphics, "Files/newPlatform2.bmp", 0, 0, width, height));
 }
 
 

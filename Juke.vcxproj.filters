@@ -205,6 +205,12 @@
     <Image Include="Files\Platform.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Files\ghostSheet.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Files\newPlatform.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Juke.rc">

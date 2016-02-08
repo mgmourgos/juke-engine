@@ -16,30 +16,30 @@ Scene::Scene(Graphics& graphics, int w, int h) : width(w), height(h)
 	game_actor_queue.push_back(player);
 
 
-	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 150, 50, 20);
+	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 150, 50, 35);
 
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 400, 260, 100, 20);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 400, 260, 100, 35);
 
 
 	entity_queue.push_back(platform);//All game objects are in the entity queue
 	//All gameActors are in game_actor_queue
-	platform = std::make_shared<EnvironmentEntity>(graphics, 35, 10, 2100, 40);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 35, 10, 2100, 35);
 	entity_queue.push_back(platform);
 
-	platform = std::make_shared<EnvironmentEntity>(graphics, 600, 260, 100, 20);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 600, 260, 100, 35);
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 800, 260, 100, 20);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 800, 260, 100, 35);
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 1000, 260, 100, 20);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 1000, 260, 100, 35);
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 1200, 260, 100, 20);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 1200, 260, 100, 35);
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 1400, 260, 100, 20);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 1400, 260, 100, 35);
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 1600, 375, 100, 20);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 1600, 375, 100, 35);
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 1900, 500, 100, 20);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 1900, 500, 100, 35);
 	entity_queue.push_back(platform);
 
 	platform = std::make_shared<EnvironmentEntity>(graphics, 0, 380, 50, 400);
@@ -87,7 +87,9 @@ Scene::~Scene()
 
 void Scene::draw(const Graphics& graphics) const
 {
+	AllSprites[0].draw(graphics, 0, 0);
 	camera->draw(graphics);
+	
 }
 
 void Scene::update(int elapsed_time_ms)

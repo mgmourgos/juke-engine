@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Files\Background.png" />
+    <Image Include="Files\ghostSheet.bmp" />
+    <Image Include="Files\newPlatform.bmp" />
     <Image Include="Files\Platform.bmp" />
     <Image Include="Files\Player.bmp" />
   </ItemGroup>
