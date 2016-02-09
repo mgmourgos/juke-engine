@@ -117,14 +117,20 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Files\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Files\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Files\GameConstants.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Files\PushCommand.h">
+      <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Files\PushingState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Files\Camera.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,11 +194,17 @@
     <ClCompile Include="Files\FallingState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="Files\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Files\Scene.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Files\PushCommand.cpp">
+      <Filter>Source Files\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Files\PushingState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Files\Camera.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

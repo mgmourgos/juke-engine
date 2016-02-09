@@ -1,9 +1,10 @@
 #include "OnGroundState.h"
 #include "PlayerConstants.h"
 #include "FallingState.h"
-//const double MaxVelocity = 0.4f;
-//const double slowDownFactor = 0.9f;
-//const double gravity = 0.0005f;
+#include "PushCommand.h"
+#include "MoveCommand.h"
+#include "PushingState.h"
+#include <string>
 
 OnGroundState::OnGroundState()
 {
@@ -16,16 +17,21 @@ OnGroundState::~OnGroundState()
 
 void OnGroundState::handleCommand(GameActor& game_actor, const Command& command) {
 
-	if (typeid(command) == typeid(MoveRightCommand) ||
-		typeid(command) == typeid(MoveLeftCommand)  ||
-		typeid(command) == typeid(JumpCommand)) {
-
-		if (typeid(command) == typeid(JumpCommand)) {
-			game_actor.setMoveContextState(new JumpingState());
-		}
-
-		command.execute(game_actor);
-	}
+	switch(command.getName())
+	{
+	case MOVE_LEFT:
+		moveLeft(game_actor);
+		break;
+	case MOVE_RIGHT:
+		moveRight(game_actor);
+		break;
+	case JUMP:
+		jump(game_actor);
+		break;
+	case PUSH:
+		push(game_actor);
+		break;
+	};
 }
 
 void OnGroundState::update(GameActor& game_actor, const int elapsed_time_ms) {
@@ -43,4 +49,8 @@ void OnGroundState::update(GameActor& game_actor, const int elapsed_time_ms) {
 			game_actor.x_vel *= slowDownFactor;
 		}
 	}
+}
+
+void OnGroundState::push(GameActor& game_actor) {
+	game_actor.setMoveContextState(new PushingState());
 }

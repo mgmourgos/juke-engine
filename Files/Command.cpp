@@ -1,15 +1,11 @@
 #include "Command.h"
 
-
-Command::Command()
+CommandName Command::getName() const
 {
+	return name;
 }
 
-
-Command::~Command()
+Command::ActivationType Command::getActivationType() const 
 {
-}
-
-Command::ActivationType Command::getActivationType() {
 	return activation_type;
 }

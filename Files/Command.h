@@ -2,19 +2,29 @@
 
 class GameActor;
 
+enum CommandName
+{
+	MOVE_LEFT,
+	MOVE_RIGHT,
+	JUMP,
+	PUSH
+};
+
 class Command
 {
-
 public:
+
+	virtual ~Command() {};
 	enum ActivationType { ONPRESS, ONRELEASE, ONHELD, NONE };
 
-	Command();
-	~Command();
-	virtual void execute(GameActor& gameactor) const = 0;
+	CommandName getName() const;
 
-	ActivationType getActivationType();
+	ActivationType getActivationType() const;
 
 protected:
-	ActivationType activation_type;
+	Command(CommandName name_, ActivationType activation_type_) : name(name_), activation_type(activation_type_){}
+
+	const CommandName name;
+	const ActivationType activation_type;
 };
 

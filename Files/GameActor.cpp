@@ -2,8 +2,9 @@
 
 int GameActor::id_counter = 0;
 
-GameActor::GameActor() : jumping(true)
+GameActor::GameActor()
 {
+	collision_type = MOVEABLE;
 	id = id_counter++;
 }
 

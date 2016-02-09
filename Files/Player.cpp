@@ -29,12 +29,6 @@ void Player::handleCommand(const Command& command) {
 	move_context_state->handleCommand(*this, command);
 }
 
-
-void Player::setJumping(bool j_) {
-	jumping = j_;
-}
-
-
 void Player::update(int elapsed_time_ms) {
 
   	double remaining_time_ms = elapsed_time_ms;
@@ -64,17 +58,4 @@ void Player::update(int elapsed_time_ms) {
 
 void Player::setMoveContextState(MoveContextState* new_state) {
 	move_context_state.reset(new_state);
-}
-
-/////Command executions
-void Player::moveLeft() {
-	move_context_state->moveLeft(*this);
-}
-
-void Player::moveRight() {
-	move_context_state->moveRight(*this);
-}
-
-void Player::jump() {
-	move_context_state->jump(*this);
 }

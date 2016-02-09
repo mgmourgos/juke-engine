@@ -9,9 +9,9 @@ enum CollisionNormal
 
 enum CollisionType
 {
-	MOVABLE,
-	UNMOVABLE
-	
+	MOVEABLE,
+	UNMOVEABLE,
+	PUSHING
 };
 
 class CollisionData
@@ -21,9 +21,13 @@ class CollisionData
 
 	//double x_pos, y_pos;//Top left coords of obj when collision took place
 	double x_vel_obj, y_vel_obj;//The velocity of the object being collided with
+
 	double collision_time;//The time of the collision
+
 	CollisionNormal normal;//The side the obj was collided on
+
 	CollisionType type;//The type of object being collided with
+
 public:
 	CollisionData();
 	CollisionData(double x_vel_obj_, double y_vel_obj_, double collision_time_, CollisionNormal normal_, CollisionType type_) :

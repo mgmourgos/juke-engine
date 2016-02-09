@@ -5,20 +5,20 @@
 class MoveLeftCommand : public Command
 {
 public:
-	MoveLeftCommand() { activation_type = ONHELD; }
-	void execute(GameActor& gameactor) const override;
+	~MoveLeftCommand() {};
+	MoveLeftCommand() : Command(MOVE_LEFT, ONHELD) {}
 };
 
 class MoveRightCommand : public Command
 {
 public:
-	MoveRightCommand() { activation_type = ONHELD; }
-	void execute(GameActor& gameactor) const override;
+	~MoveRightCommand() override {};
+	MoveRightCommand() : Command(MOVE_RIGHT, ONHELD) {}
 };
 
 class JumpCommand : public Command
 {
 public:
-	JumpCommand()  { activation_type = ONPRESS; }
-	void execute(GameActor& gameactor) const override;
+	~JumpCommand() override {};
+	JumpCommand() : Command(JUMP, ONPRESS) {}
 };

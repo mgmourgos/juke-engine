@@ -13,6 +13,7 @@ class Player : public GameActor
 	friend class JumpingState;
 	friend class FallingState;
 	friend class MoveContextState;
+	friend class PushingState;
 
 	std::unique_ptr<Sprite> sprite;
 	
@@ -28,11 +29,5 @@ public:
 	void handleCommand(const Command& command) override;
 
 	void setMoveContextState(MoveContextState* new_state) override;
-
-	void moveLeft() override;
-	void moveRight() override;
-	void jump() override;
-
-	void setJumping(bool);
 };
 

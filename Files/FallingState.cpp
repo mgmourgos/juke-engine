@@ -12,10 +12,18 @@ FallingState::~FallingState()
 }
 
 void FallingState::handleCommand(GameActor& game_actor, const Command& command) {
-	if (typeid(command) == typeid(MoveRightCommand) ||
-		typeid(command) == typeid(MoveLeftCommand)) {
-		command.execute(game_actor);
-	}
+
+	switch (command.getName())
+	{
+	case MOVE_LEFT:
+		moveLeft(game_actor);
+		break;
+	case MOVE_RIGHT:
+		moveRight(game_actor);
+		break;
+	default:
+		break;
+	};
 }
 
 void FallingState::update(GameActor& game_actor, const int elapsed_time_ms) {

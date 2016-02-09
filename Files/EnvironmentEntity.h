@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 #include "Sprite.h"
+
+//Structural entities that are generally unmoveable
 class EnvironmentEntity :
 	public Entity
 {

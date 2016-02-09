@@ -1,8 +1,7 @@
 #pragma once
 #include "PlayerState.h"
 
-class MoveContextState :
-	public PlayerState
+class MoveContextState : public PlayerState
 {
 public:
 	virtual void handleCommand(GameActor& game_actor, const Command& command) = 0;
@@ -11,5 +10,6 @@ public:
 	virtual void moveLeft(GameActor& game_actor);
 	virtual void moveRight(GameActor& game_actor);
 	virtual void jump(GameActor& game_actor);
+	virtual void push(GameActor& game_actor) {}  //only done in ongroundstate
 };
 

@@ -32,6 +32,8 @@
     <ClInclude Include="Files\Player.h" />
     <ClInclude Include="Files\PlayerConstants.h" />
     <ClInclude Include="Files\PlayerState.h" />
+    <ClInclude Include="Files\PushCommand.h" />
+    <ClInclude Include="Files\PushingState.h" />
     <ClInclude Include="Files\Scene.h" />
     <ClInclude Include="Files\SDL_Deleter.h" />
     <ClInclude Include="Files\Sprite.h" />
@@ -58,6 +60,8 @@
     <ClCompile Include="Files\Physics.cpp" />
     <ClCompile Include="Files\Player.cpp" />
     <ClCompile Include="Files\PlayerState.cpp" />
+    <ClCompile Include="Files\PushCommand.cpp" />
+    <ClCompile Include="Files\PushingState.cpp" />
     <ClCompile Include="Files\Scene.cpp" />
     <ClCompile Include="Files\Sprite.cpp" />
   </ItemGroup>

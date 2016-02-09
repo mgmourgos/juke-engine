@@ -1,8 +1,6 @@
 #pragma once
 #include "Graphics.h"
 #include "Box.h"
-#include <algorithm>
-//#include "Collision.h"
 #include "CollisionData.h"
 #include <vector>
 
@@ -14,6 +12,7 @@ class Entity
 	friend class JumpingState;
 	friend class FallingState;
 	friend class MoveContextState;
+	friend class PushingState;
 	friend class Camera;
 
 protected:
@@ -21,7 +20,7 @@ protected:
 	double x_vel, y_vel;
 	double x_acc, y_acc;
 	int width, height;
-	CollisionType type;
+	CollisionType collision_type;
 	std::vector <std::unique_ptr<CollisionData>> collision_vector;
 
 	struct CollisionNormals
@@ -39,7 +38,7 @@ public:
 	virtual void update(int elapsed_time_ms) = 0;
 	virtual void draw(const Graphics& graphics, int x_render_pos, int y_render_pos) const = 0;
 
-	CollisionType getCollisionType() const { return type; };
+	CollisionType getCollisionType() const { return collision_type; };
 	void addCollision(std::unique_ptr<CollisionData>);
 
 	Box getBox() const;

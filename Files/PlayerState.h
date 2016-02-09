@@ -1,7 +1,6 @@
 #pragma once
 #include "Command.h"
-#include <typeinfo>
-//#include "Player.h"
+
 class GameActor;
 
 class PlayerState 
