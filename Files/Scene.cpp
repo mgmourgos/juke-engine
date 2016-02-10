@@ -16,7 +16,7 @@ Scene::Scene(Graphics& graphics, int w, int h) : width(w), height(h)
 	game_actor_queue.push_back(player);
 
 
-	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 150, 50, 35);
+	std::shared_ptr<EnvironmentEntity> platform = std::make_shared<EnvironmentEntity>(graphics, 350, 170, 50, 35);
 
 	entity_queue.push_back(platform);
 	platform = std::make_shared<EnvironmentEntity>(graphics, 400, 260, 100, 35);
@@ -37,9 +37,9 @@ Scene::Scene(Graphics& graphics, int w, int h) : width(w), height(h)
 	entity_queue.push_back(platform);
 	platform = std::make_shared<EnvironmentEntity>(graphics, 1400, 260, 100, 35);
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 1600, 375, 100, 35);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 1600, 350, 100, 35);
 	entity_queue.push_back(platform);
-	platform = std::make_shared<EnvironmentEntity>(graphics, 1900, 500, 100, 35);
+	platform = std::make_shared<EnvironmentEntity>(graphics, 1900, 441, 100, 35);
 	entity_queue.push_back(platform);
 
 	platform = std::make_shared<EnvironmentEntity>(graphics, 0, 380, 50, 400);
