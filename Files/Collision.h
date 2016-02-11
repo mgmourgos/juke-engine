@@ -7,14 +7,16 @@ class Collision
 {
 public:
 
-	static bool isCollisionPossible(Box b1, Box b2, int elapsed_time_ms);
-	static std::unique_ptr<CollisionData> getCollisionData(const Entity& e1, const Entity& e2, int elapsed_time_ms);
+	bool isCollisionPossible(Box b1, Box b2, int elapsed_time_ms);
+	std::unique_ptr<CollisionData> getCollisionData(const Entity& e1, const Entity& e2, int elapsed_time_ms);
 
-	static std::unique_ptr<CollisionData> determineCollisionData(CollisionNormal normal, Box b1, Box b2, CollisionType entity_2_collision_type, int elapsed_time_ms);
+	std::unique_ptr<CollisionData> determineCollisionData(CollisionNormal normal, Box b1, Box b2, CollisionType entity_2_collision_type, int elapsed_time_ms);
 
-	static Box getBroadphaseBox(Box b1, int elapsedTime);
-	static bool doesXAxisCollide(Box b1, Box b2);
-	static bool doesYAxisCollide(Box b1, Box b2);
+	Box getBroadphaseBox(Box b1, int elapsedTime);
+	bool doesXAxisCollide(Box b1, Box b2);
+	bool doesYAxisCollide(Box b1, Box b2);
+
+	Box getUpdatedPosition(Box b1, int elapsed_time_ms);
 
 	Collision();
 	~Collision();

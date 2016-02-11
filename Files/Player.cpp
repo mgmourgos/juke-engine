@@ -1,15 +1,11 @@
 #include "Player.h"
 #include "PlayerConstants.h"
 
-Player::Player(Graphics& graphics, int x_, int y_)
+const int PLAYER_WIDTH = 25;
+const int PLAYER_HEIGHT = 32;
+
+Player::Player(Graphics& graphics, int x_, int y_) : Actor(x_, y_, PLAYER_WIDTH, PLAYER_HEIGHT, MOVEABLE)
 {
-	x_pos = x_;
-	y_pos = y_;
-
-	y_acc = gravity;
-
-	width = 25;
-	height = 32;
 	sprite.reset(new Sprite(graphics, "Files/ghostSheet.bmp", 0, 0, width, height));
 
 	move_context_state = std::make_unique<OnGroundState>();
@@ -45,7 +41,8 @@ void Player::update(int elapsed_time_ms) {
 
 	collision_vector.clear();
 
-	doPhysics(remaining_time_ms, MaxVelocity);
+	Box result_box = physics.actPhysicsOn(remaining_time_ms, move_context_state->getMaxVelocity(), getBox());
+	setBox(result_box);
 
 	move_context_state->update(*this, remaining_time_ms);
 
@@ -57,5 +54,7 @@ void Player::update(int elapsed_time_ms) {
 
 
 void Player::setMoveContextState(MoveContextState* new_state) {
+	move_context_state->onExit(*this);
 	move_context_state.reset(new_state);
+	move_context_state->onEntry(*this);
 }

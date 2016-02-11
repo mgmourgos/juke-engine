@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "Entity.h"
 #include "Camera.h"
+#include "Collision.h"
 
 class Graphics;
 
@@ -17,11 +18,13 @@ class Scene
 	//std::vector<std::shared_ptr<Command>> command_queue;
 	std::vector<Sprite> AllSprites;
 	std::vector<std::shared_ptr<Entity>> entity_queue;
-	std::vector < std::shared_ptr<GameActor>>game_actor_queue;
+	std::vector < std::shared_ptr<Actor>>game_actor_queue;
 
 	std::unique_ptr<Camera> camera;
 
 	std::shared_ptr<Entity> camera_subject;
+
+	std::unique_ptr<Collision> collision_component;
 
 public:
 	Scene(Graphics& graphics, int w, int h);

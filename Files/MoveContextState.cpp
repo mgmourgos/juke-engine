@@ -1,25 +1,38 @@
 #include "MoveContextState.h"
-#include "GameActor.h"
+#include "Actor.h"
 #include "PlayerConstants.h"
 #include "JumpingState.h"
 
-void MoveContextState::moveLeft(GameActor& game_actor) {
+MoveContextState::MoveContextState() : max_velocity(MaxVelocity)
+{
+}
+
+MoveContextState::MoveContextState(float max_velocity_) : max_velocity(max_velocity_)
+{
+}
+
+void MoveContextState::moveLeft(Actor& actor) {
 
 	//handles moving left and right
-	if (game_actor.x_acc >= 0){
-		game_actor.x_acc += -moveAcceleration;
+	if (actor.x_acc >= 0){
+		actor.x_acc += -moveAcceleration;
 	}
 }
 
-void MoveContextState::moveRight(GameActor& game_actor) {
+void MoveContextState::moveRight(Actor& actor) {
 
 	//handles moving left and right
-	if (game_actor.x_acc <= 0) {
-		game_actor.x_acc += moveAcceleration;
+	if (actor.x_acc <= 0) {
+		actor.x_acc += moveAcceleration;
 	}
 }
 
-void MoveContextState::jump(GameActor& game_actor) {
-	game_actor.setMoveContextState(new JumpingState());
-	game_actor.y_vel = jumpVelocity;
+void MoveContextState::jump(Actor& actor) {
+	actor.setMoveContextState(new JumpingState());
+	actor.y_vel = jumpVelocity;
+}
+
+float MoveContextState::getMaxVelocity() const
+{
+	return max_velocity;
 }

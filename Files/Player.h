@@ -1,13 +1,14 @@
 #pragma once
 #include <memory>
 #include "Sprite.h"
-#include "GameActor.h"
+#include "Actor.h"
 #include "OnGroundState.h"
+#include "Physics.h"
 
 class Command;
 class Graphics;
 
-class Player : public GameActor
+class Player : public Actor
 {
 	friend class OnGroundState;
 	friend class JumpingState;
@@ -18,6 +19,8 @@ class Player : public GameActor
 	std::unique_ptr<Sprite> sprite;
 	
 	std::unique_ptr<MoveContextState> move_context_state;
+
+	Physics physics;
 
 public:
 	Player(Graphics& graphics, int x, int y);

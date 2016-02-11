@@ -1,9 +1,8 @@
 #include "OnGroundState.h"
 #include "PlayerConstants.h"
 #include "FallingState.h"
-#include "PushCommand.h"
-#include "MoveCommand.h"
 #include "PushingState.h"
+#include "Actor.h"
 #include <string>
 
 OnGroundState::OnGroundState()
@@ -15,42 +14,42 @@ OnGroundState::~OnGroundState()
 {
 }
 
-void OnGroundState::handleCommand(GameActor& game_actor, const Command& command) {
+void OnGroundState::handleCommand(Actor& actor, const Command& command) {
 
 	switch(command.getName())
 	{
 	case MOVE_LEFT:
-		moveLeft(game_actor);
+		moveLeft(actor);
 		break;
 	case MOVE_RIGHT:
-		moveRight(game_actor);
+		moveRight(actor);
 		break;
 	case JUMP:
-		jump(game_actor);
+		jump(actor);
 		break;
 	case PUSH:
-		push(game_actor);
+		push(actor);
 		break;
 	};
 }
 
-void OnGroundState::update(GameActor& game_actor, const int elapsed_time_ms) {
+void OnGroundState::update(Actor& actor, const int elapsed_time_ms) {
 
-	if(game_actor.collision_normals.bottom == false)
+	if (actor.collision_normals.bottom == false)
 	{
-		game_actor.setMoveContextState(new FallingState());
+		actor.setMoveContextState(new FallingState());
 	}
 	else {
-		if (fabs(game_actor.x_vel) <= .001) {
-			game_actor.x_vel = 0;
+		if (fabs(actor.x_vel) <= .001) {
+			actor.x_vel = 0;
 		}
 
-		if (game_actor.x_acc == 0) {
-			game_actor.x_vel *= slowDownFactor;
+		if (actor.x_acc == 0) {
+			actor.x_vel *= slowDownFactor;
 		}
 	}
 }
 
-void OnGroundState::push(GameActor& game_actor) {
-	game_actor.setMoveContextState(new PushingState());
+void OnGroundState::push(Actor& actor) {
+	actor.setMoveContextState(new PushingState());
 }

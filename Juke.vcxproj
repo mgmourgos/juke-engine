@@ -17,10 +17,10 @@
     <ClInclude Include="Files\CollisionData.h" />
     <ClInclude Include="Files\Command.h" />
     <ClInclude Include="Files\Entity.h" />
-    <ClInclude Include="Files\EnvironmentEntity.h" />
+    <ClInclude Include="Files\Fixture.h" />
     <ClInclude Include="Files\FallingState.h" />
     <ClInclude Include="Files\Game.h" />
-    <ClInclude Include="Files\GameActor.h" />
+    <ClInclude Include="Files\Actor.h" />
     <ClInclude Include="Files\GameConstants.h" />
     <ClInclude Include="Files\Graphics.h" />
     <ClInclude Include="Files\InputHandler.h" />
@@ -34,6 +34,7 @@
     <ClInclude Include="Files\PlayerState.h" />
     <ClInclude Include="Files\PushCommand.h" />
     <ClInclude Include="Files\PushingState.h" />
+    <ClInclude Include="Files\Prop.h" />
     <ClInclude Include="Files\Scene.h" />
     <ClInclude Include="Files\SDL_Deleter.h" />
     <ClInclude Include="Files\Sprite.h" />
@@ -46,10 +47,10 @@
     <ClCompile Include="Files\CollisionData.cpp" />
     <ClCompile Include="Files\Command.cpp" />
     <ClCompile Include="Files\Entity.cpp" />
-    <ClCompile Include="Files\EnvironmentEntity.cpp" />
+    <ClCompile Include="Files\Fixture.cpp" />
     <ClCompile Include="Files\FallingState.cpp" />
     <ClCompile Include="Files\Game.cpp" />
-    <ClCompile Include="Files\GameActor.cpp" />
+    <ClCompile Include="Files\Actor.cpp" />
     <ClCompile Include="Files\Graphics.cpp" />
     <ClCompile Include="Files\InputHandler.cpp" />
     <ClCompile Include="Files\JumpingState.cpp" />
@@ -62,6 +63,7 @@
     <ClCompile Include="Files\PlayerState.cpp" />
     <ClCompile Include="Files\PushCommand.cpp" />
     <ClCompile Include="Files\PushingState.cpp" />
+    <ClCompile Include="Files\Prop.cpp" />
     <ClCompile Include="Files\Scene.cpp" />
     <ClCompile Include="Files\Sprite.cpp" />
   </ItemGroup>
@@ -71,6 +73,7 @@
     <Image Include="Files\newPlatform.bmp" />
     <Image Include="Files\Platform.bmp" />
     <Image Include="Files\Player.bmp" />
+    <Image Include="Files\Scaffold.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Juke.rc" />

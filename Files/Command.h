@@ -1,6 +1,6 @@
 #pragma once
 
-class GameActor;
+class Actor;
 
 enum CommandName
 {

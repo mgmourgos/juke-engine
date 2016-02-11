@@ -1,6 +1,5 @@
 #pragma once
 #include "Command.h"
-#include "GameActor.h"
 
 class MoveLeftCommand : public Command
 {

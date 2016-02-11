@@ -1,6 +1,4 @@
 #include "Collision.h"
-#include "Physics.h"
-#include "PlayerConstants.h"//Temporary
 
 
 Collision::Collision()
@@ -212,9 +210,9 @@ bool Collision::isCollisionPossible(Box b1, Box b2, int elapsed_time_ms)
 	return true;
 }
 
-Box Collision::getBroadphaseBox(Box b1, int elapsedTime)
+Box Collision::getBroadphaseBox(Box b1, int elapsed_time_ms)
 {
-	Box returnBox = Physics::actPhysicsOn(elapsedTime, MaxVelocity, b1);
+	Box returnBox = getUpdatedPosition(b1, elapsed_time_ms);
 
 	Box broad;
 	if (b1.vx < 0) {
@@ -235,4 +233,12 @@ Box Collision::getBroadphaseBox(Box b1, int elapsedTime)
 		broad.h = returnBox.y - b1.y + b1.h;
 	}
 	return broad;
+}
+
+Box Collision::getUpdatedPosition(Box b1, int elapsed_time_ms)
+{
+	b1.x += b1.vx * elapsed_time_ms;
+	b1.y += b1.vy * elapsed_time_ms;
+
+	return b1;
 }

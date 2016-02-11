@@ -16,12 +16,13 @@ class Entity
 	friend class Camera;
 
 protected:
+
 	double x_pos, y_pos;
-	double x_vel, y_vel;
-	double x_acc, y_acc;
 	int width, height;
+
 	CollisionType collision_type;
-	std::vector <std::unique_ptr<CollisionData>> collision_vector;
+
+	std::vector <std::shared_ptr<CollisionData>> collision_vector;
 
 	struct CollisionNormals
 	{
@@ -32,24 +33,23 @@ protected:
 		CollisionNormals() : top(false), bottom(false), left(false), right(false) {}
 		void reset() { top = bottom = left = right = false; }
 	};
+
 	CollisionNormals collision_normals;
 
 public:
 	virtual void update(int elapsed_time_ms) = 0;
 	virtual void draw(const Graphics& graphics, int x_render_pos, int y_render_pos) const = 0;
 
+	virtual Box getBox() const = 0;
+	virtual void setBox(Box b1) = 0;
+
 	CollisionType getCollisionType() const { return collision_type; };
-	void addCollision(std::unique_ptr<CollisionData>);
-
-	Box getBox() const;
-	void setBox(Box b1);
-
-	void doPhysics(double elapsed_time_ms, double max_velocity);
+	void addCollision(std::shared_ptr<CollisionData>);
 
 	void setCollisionNormal(CollisionNormal normal);
+	void setCollisionType(CollisionType type);
 
-	Entity();
-	Entity(int x_, int y_);
+	Entity(int x_, int y_, int width_, int height_, CollisionType col_type_);
 	virtual ~Entity();
 };
 

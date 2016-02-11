@@ -2,10 +2,6 @@
 #include <algorithm>
 
 Box Physics::actPhysicsOn(double elapsed_time_ms, double max_velocity, Box box) {
-	//this is called in:
-	//	Entity.cpp	Entity.doPhysics()
-	//  Game.cpp	Game.doPhysics()
-
 
 	//Position and Velocity setting
 	//box.x += (0.5f) * box.ax * elapsed_time_ms * elapsed_time_ms + box.vx * elapsed_time_ms;
@@ -26,4 +22,11 @@ Box Physics::actPhysicsOn(double elapsed_time_ms, double max_velocity, Box box) 
 	}
 
 	return box;
+}
+
+Box handleCollisions(std::vector<std::shared_ptr<CollisionData>> collision_data, int elapsed_time_ms)
+{
+	Box collision_box;
+
+	return collision_box;
 }

@@ -63,13 +63,7 @@
     <ClInclude Include="Files\Entity.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Files\GameActor.h">
-      <Filter>Header Files\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="Files\Player.h">
-      <Filter>Header Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="Files\EnvironmentEntity.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Files\Box.h">
@@ -132,6 +126,15 @@
     <ClInclude Include="Files\Camera.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Files\Fixture.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Files\Actor.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Files\Prop.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Files\Game.cpp">
@@ -164,9 +167,6 @@
     <ClCompile Include="Files\Entity.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Files\GameActor.cpp">
-      <Filter>Source Files\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Files\Player.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
@@ -175,9 +175,6 @@
     </ClCompile>
     <ClCompile Include="Files\Sprite.cpp">
       <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Files\EnvironmentEntity.cpp">
-      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Files\PlayerState.cpp">
       <Filter>Source Files\States</Filter>
@@ -206,6 +203,15 @@
     <ClCompile Include="Files\Camera.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Files\Fixture.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Files\Actor.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Files\Prop.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Files\Background.png">
@@ -221,6 +227,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Files\newPlatform.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Files\Scaffold.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
