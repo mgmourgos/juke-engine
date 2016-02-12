@@ -18,7 +18,7 @@ Scene::Scene(Graphics& graphics, int w, int h) : width(w), height(h)
 	entity_queue.push_back(player);
 	game_actor_queue.push_back(player);
 
-	std::shared_ptr<Prop> scaffold = std::make_shared<Prop>(graphics, 500, 110);
+	std::shared_ptr<Prop> scaffold = std::make_shared<Prop>(graphics, 500, 150);
 	entity_queue.push_back(scaffold);
 
 

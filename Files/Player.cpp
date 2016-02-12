@@ -26,7 +26,7 @@ void Player::handleCommand(const Command& command) {
 }
 
 void Player::update(int elapsed_time_ms) {
-
+	
   	double remaining_time_ms = elapsed_time_ms;
 
 	for (auto& collision : collision_vector)
@@ -34,15 +34,10 @@ void Player::update(int elapsed_time_ms) {
 		setCollisionNormal(collision->normal);
 	}
 
-	for (auto& collision : collision_vector)
-	{
-		handleCollision(*collision, remaining_time_ms, elapsed_time_ms);
-	}
+	Box result_box = physics.update(collision_vector, getBox(), move_context_state->getMaxVelocity(), elapsed_time_ms);
+	setBox(result_box);
 
 	collision_vector.clear();
-
-	Box result_box = physics.actPhysicsOn(remaining_time_ms, move_context_state->getMaxVelocity(), getBox());
-	setBox(result_box);
 
 	move_context_state->update(*this, remaining_time_ms);
 

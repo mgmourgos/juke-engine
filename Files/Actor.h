@@ -32,8 +32,6 @@ public:
 	Box getBox() const override;
 	void setBox(Box b1) override;
 
-	void handleCollision(CollisionData& collision_data, double& remaining_time_ms, int elapsed_time_ms);
-
 	virtual void handleCommand(const Command& command) = 0;
 
 	virtual void setMoveContextState(MoveContextState* new_state) = 0;
